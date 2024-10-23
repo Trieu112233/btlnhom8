@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class LibraryManagementSystem {
+
   public static void main(String[] args) {
     Library library = new Library();
     Scanner scanner = new Scanner(System.in);
@@ -9,6 +10,8 @@ public class LibraryManagementSystem {
     Admin trieu = new Admin("Trieu", "01", "Quan ly");
     library.addDefaultAdmin(trieu);
 
+    NormalUser quang = new NormalUser("Quang", "02", "k2", "k67");
+    library.addDefaultStudent(quang);
 
     // Đăng nhập
     System.out.print("Enter your username: ");

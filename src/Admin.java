@@ -1,16 +1,23 @@
 public class Admin extends User {
 
-  /** Chuc vu. */
+  /**
+   * Chuc vu.
+   */
   private String position;
   private String adminId;
-  /** Khoi tao. */
+
+  /**
+   * Khoi tao.
+   */
   public Admin(String name, String adminId, String position) {
     super(name);
     this.position = position;
     this.adminId = adminId;
   }
 
-  /** getter, setter. */
+  /**
+   * getter, setter.
+   */
   public String getPosition() {
     return position;
   }
@@ -27,7 +34,9 @@ public class Admin extends User {
     this.adminId = adminId;
   }
 
-  /** in het ra. */
+  /**
+   * in het ra.
+   */
   @Override
   public void displayUserInfo() {
     System.out.println("Admin: " + getName());
@@ -35,7 +44,9 @@ public class Admin extends User {
     System.out.println("Position: " + getPosition());
   }
 
-  /** check admin. */
+  /**
+   * check admin.
+   */
   @Override
   public boolean isAdmin() {
     return true;

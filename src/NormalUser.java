@@ -1,12 +1,16 @@
 public class NormalUser extends User {
 
-  /** Khoi tao thuoc tinh. */
+  /**
+   * Khoi tao thuoc tinh.
+   */
   private String studentId;
   private String className;
   private String courseName;
   private Document borrowedDocument;
 
-  /** Khoi tao. */
+  /**
+   * Khoi tao.
+   */
   public NormalUser(String name, String studentId, String className, String courseName) {
     super(name);
     this.studentId = studentId;
@@ -15,7 +19,9 @@ public class NormalUser extends User {
     this.borrowedDocument = null;
   }
 
-  /** getter, setter. */
+  /**
+   * getter, setter.
+   */
   public String getStudentId() {
     return studentId;
   }
@@ -40,7 +46,9 @@ public class NormalUser extends User {
     this.courseName = courseName;
   }
 
-  /** in het ra. */
+  /**
+   * in het ra.
+   */
   @Override
   public void displayUserInfo() {
     System.out.println("User: " + getName());
@@ -54,13 +62,17 @@ public class NormalUser extends User {
     }
   }
 
-  /** check admin. */
+  /**
+   * check admin.
+   */
   @Override
   public boolean isAdmin() {
     return false;
   }
 
-  /** muon sach: copiesAvailable - 1. */
+  /**
+   * muon sach: copiesAvailable - 1.
+   */
   public void borrowDocument(Document doc) {
     if (borrowedDocument != null) {
       System.out.println("User already has a borrowed document.");
@@ -73,7 +85,9 @@ public class NormalUser extends User {
     }
   }
 
-  /** tra sach: copiesAvailable + 1. */
+  /**
+   * tra sach: copiesAvailable + 1.
+   */
   public void returnDocument() {
     if (borrowedDocument == null) {
       System.out.println("No document to return.");

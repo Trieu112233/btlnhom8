@@ -1,22 +1,32 @@
 public abstract class User {
-  /** KHoi tao thuoc tinh. */
+
+  /**
+   * KHoi tao thuoc tinh.
+   */
   private String name;
 
-  /** Khoi tao.*/
+  /**
+   * Khoi tao.
+   */
   public User(String name) {
     this.name = name;
   }
 
-  /** getter, setter. */
+  /**
+   * getter, setter.
+   */
   public String getName() {
     return name;
   }
 
-  public void setName(String name){
+  public void setName(String name) {
     this.name = name;
   }
 
-  /** phuong thuc mac dinh. */
+  /**
+   * phuong thuc mac dinh.
+   */
   public abstract void displayUserInfo();
+
   public abstract boolean isAdmin();
 }

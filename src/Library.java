@@ -3,13 +3,17 @@ import java.util.Scanner;
 
 public class Library {
 
-  /** Khoi tao thuoc tinh. */
+  /**
+   * Khoi tao thuoc tinh.
+   */
   private ArrayList<Document> documents;
   private ArrayList<User> users;
   private ArrayList<NormalUser> students;
   private ArrayList<Admin> admins;
 
-  /** Khoi tao. */
+  /**
+   * Khoi tao.
+   */
   public Library() {
     documents = new ArrayList<>();
     users = new ArrayList<>();
@@ -17,7 +21,9 @@ public class Library {
     admins = new ArrayList<>();
   }
 
-  /** Them sach (admin only). */
+  /**
+   * Them sach (admin only).
+   */
   public void addDocument(User user, String title, String author, int copiesAvailable) {
     if (user.isAdmin()) {
       Document doc = new Document(title, author, copiesAvailable);
@@ -28,7 +34,9 @@ public class Library {
     }
   }
 
-  /** Xoa sach (admin only). */
+  /**
+   * Xoa sach (admin only).
+   */
   public void removeDocument(User user, String title) {
     if (user.isAdmin()) {
       Document doc = findDocument(title);
@@ -43,7 +51,9 @@ public class Library {
     }
   }
 
-  /** Cap nhat sach (admin only). */
+  /**
+   * Cap nhat sach (admin only).
+   */
   public void updateDocument(User user, String title, int newCopies) {
     if (user.isAdmin()) {
       Document doc = findDocument(title);
@@ -58,7 +68,9 @@ public class Library {
     }
   }
 
-  /** Tim sach. */
+  /**
+   * Tim sach.
+   */
   public void searchDocument(String title) {
     Document doc = findDocument(title);
     if (doc != null) {
@@ -68,7 +80,9 @@ public class Library {
     }
   }
 
-  /** In het sach ra. */
+  /**
+   * In het sach ra.
+   */
   public void displayAllDocuments() {
     for (Document doc : documents) {
       doc.printInfo();
@@ -76,7 +90,9 @@ public class Library {
     }
   }
 
-  /** Them nguoi dung (admin only). */
+  /**
+   * Them nguoi dung (admin only).
+   */
   public void addUser(User user, String name, boolean isAdmin) {
     if (user.isAdmin()) {
       Scanner scanner = new Scanner(System.in);
@@ -105,7 +121,9 @@ public class Library {
     }
   }
 
-  /** Tim nguoi dung. */
+  /**
+   * Tim nguoi dung.
+   */
   public NormalUser findUserById(String id) {
     for (NormalUser student : students) {
       if (student.getStudentId().equalsIgnoreCase(id)) {
@@ -129,7 +147,9 @@ public class Library {
     }
   }
 
-  /** dang nhap. */
+  /**
+   * dang nhap.
+   */
   public User login(String username) {
     for (User user : users) {
       if (user.getName().equalsIgnoreCase(username)) {
@@ -139,7 +159,9 @@ public class Library {
     return null;
   }
 
-  /** Tra sach. */
+  /**
+   * Tra sach.
+   */
   public Document findDocument(String title) {
     for (Document doc : documents) {
       if (doc.getTitle().equalsIgnoreCase(title)) {
@@ -149,8 +171,13 @@ public class Library {
     return null;
   }
 
-  public void addDefaultAdmin(Admin admin){
+  public void addDefaultAdmin(Admin admin) {
     admins.add(admin);
     users.add(admin);
+  }
+
+  public void addDefaultStudent(NormalUser student) {
+    students.add(student);
+    users.add(student);
   }
 }
