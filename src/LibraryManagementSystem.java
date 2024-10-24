@@ -7,7 +7,7 @@ public class LibraryManagementSystem {
     Scanner scanner = new Scanner(System.in);
     User loggedInUser;
 
-    // Đăng nhập
+    /** Đăng nhập. */
     System.out.print("Enter your username: ");
     String username = scanner.nextLine();
     loggedInUser = library.login(username);
@@ -17,7 +17,7 @@ public class LibraryManagementSystem {
       return;
     }
 
-    // Hiển thị menu theo loại người dùng
+    /** Hiển thị menu theo loại người dùng. */
     if (loggedInUser.isAdmin()) {
       adminMenu(library, loggedInUser, scanner);
     } else {
@@ -25,6 +25,9 @@ public class LibraryManagementSystem {
     }
   }
 
+  /**
+   * Admin menu.
+   */
   private static void adminMenu(Library library, User loggedInUser, Scanner scanner) {
     String option;
     do {
@@ -104,6 +107,9 @@ public class LibraryManagementSystem {
     } while (!option.equals("0"));
   }
 
+  /**
+   * Student menu.
+   */
   private static void normalUserMenu(Library library, User loggedInUser, Scanner scanner) {
     String option;
     do {

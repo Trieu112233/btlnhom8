@@ -123,30 +123,36 @@ public class Library {
   }
 
   /**
-   * Tim nguoi dung.
+   * Tim nguoi dung (admin only).
    */
   public NormalUser findUserById(String id) {
     return dbManager.findNormalUser(id);
   }
 
+  /**
+   * Hien thi tat ca hoc sinh(Admin only).
+   */
   public void displayAllStudents() {
     ArrayList<NormalUser> students = dbManager.getAllNormalUsers();
-    for(NormalUser student: students){
+    for (NormalUser student : students) {
       student.displayUserInfo();
       System.out.println("\n");
     }
   }
 
+  /**
+   * Hien thi tat ca admin(admin only).
+   */
   public void displayAllAdmins() {
     ArrayList<Admin> admins = dbManager.getAllAdmins();
-    for(Admin admin: admins){
+    for (Admin admin : admins) {
       admin.displayUserInfo();
       System.out.println("\n");
     }
   }
 
   /**
-   * Tra sach.
+   * Tra cuu sach.
    */
   public Document findDocument(String title) {
     return dbManager.findDocument(title);
@@ -175,8 +181,10 @@ public class Library {
     if (student.getBorrowedDocument() == null) {
       System.out.println("No document to return.");
     } else {
-      student.getBorrowedDocument().setCopiesAvailable(student.getBorrowedDocument().getCopiesAvailable() + 1);
-      System.out.println(student.getName() + " returned " + student.getBorrowedDocument().getTitle());
+      student.getBorrowedDocument()
+          .setCopiesAvailable(student.getBorrowedDocument().getCopiesAvailable() + 1);
+      System.out.println(
+          student.getName() + " returned " + student.getBorrowedDocument().getTitle());
       dbManager.updateBorrowedDocument(student.getStudentId(), "");
       student.setBorrowedDocument(null);
     }

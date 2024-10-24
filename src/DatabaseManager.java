@@ -2,13 +2,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DatabaseManager {
+
   private Connection connection;
 
   public DatabaseManager() {
     this.connection = DatabaseConnection.getConnection();
   }
 
-  // Document Operations
+  /**
+   * them sach.
+   */
   public void addDocument(Document doc) {
     String sql = "INSERT INTO document (title, author, copies_available) VALUES (?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -21,6 +24,9 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * xoa sach.
+   */
   public void removeDocument(String title) {
     String sql = "DELETE FROM document WHERE title = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -31,6 +37,9 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * cap nhat sach.
+   */
   public void updateDocument(String title, int newCopies) {
     String sql = "UPDATE document SET copies_available = ? WHERE title = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -42,6 +51,9 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * tim sach.
+   */
   public Document findDocument(String title) {
     String sql = "SELECT * FROM document WHERE title = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -60,6 +72,9 @@ public class DatabaseManager {
     return null;
   }
 
+  /**
+   * tat ca sach.
+   */
   public ArrayList<Document> getAllDocuments() {
     ArrayList<Document> documents = new ArrayList<>();
     String sql = "SELECT * FROM document";
@@ -78,7 +93,9 @@ public class DatabaseManager {
     return documents;
   }
 
-  // Admin Operations
+  /**
+   * them admmin.
+   */
   public void addAdmin(Admin admin) {
     String sql = "INSERT INTO admin (admin_id, name, position) VALUES (?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -91,6 +108,9 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * tim admin theo admin id.
+   */
   public Admin findAdmin(String adminId) {
     String sql = "SELECT * FROM admin WHERE admin_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -109,7 +129,9 @@ public class DatabaseManager {
     return null;
   }
 
-  // NormalUser Operations
+  /**
+   * them hoc sinh.
+   */
   public void addNormalUser(NormalUser user) {
     String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name) VALUES (?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -142,6 +164,9 @@ public class DatabaseManager {
     return null;
   }
 
+  /**
+   * muon tra sach.
+   */
   public void updateBorrowedDocument(String studentId, String documentTitle) {
     String sql = "UPDATE normal_user SET borrowed_document_title = ? WHERE student_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -153,6 +178,9 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * tat ca hoc sinh.
+   */
   public ArrayList<NormalUser> getAllNormalUsers() {
     ArrayList<NormalUser> users = new ArrayList<>();
     String sql = "SELECT * FROM normal_user";
@@ -172,6 +200,9 @@ public class DatabaseManager {
     return users;
   }
 
+  /**
+   * tat ca admin.
+   */
   public ArrayList<Admin> getAllAdmins() {
     ArrayList<Admin> admins = new ArrayList<>();
     String sql = "SELECT * FROM admin";
