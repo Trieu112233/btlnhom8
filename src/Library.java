@@ -6,19 +6,13 @@ public class Library {
   /**
    * Khoi tao thuoc tinh.
    */
-  private ArrayList<Document> documents;
-  private ArrayList<User> users;
-  private ArrayList<NormalUser> students;
-  private ArrayList<Admin> admins;
+  public DatabaseManager dbManager;
 
   /**
    * Khoi tao.
    */
   public Library() {
-    documents = new ArrayList<>();
-    users = new ArrayList<>();
-    students = new ArrayList<>();
-    admins = new ArrayList<>();
+    this.dbManager = new DatabaseManager();
   }
 
   /**
@@ -27,7 +21,7 @@ public class Library {
   public void addDocument(User user, String title, String author, int copiesAvailable) {
     if (user.isAdmin()) {
       Document doc = new Document(title, author, copiesAvailable);
-      documents.add(doc);
+      dbManager.addDocument(doc);
       System.out.println("Document added: " + title);
     } else {
       System.out.println("Permission denied! Only admins can add documents.");
@@ -41,7 +35,7 @@ public class Library {
     if (user.isAdmin()) {
       Document doc = findDocument(title);
       if (doc != null) {
-        documents.remove(doc);
+        dbManager.removeDocument(title);
         System.out.println("Document removed: " + title);
       } else {
         System.out.println("Document not found.");
@@ -59,6 +53,7 @@ public class Library {
       Document doc = findDocument(title);
       if (doc != null) {
         doc.setCopiesAvailable(newCopies);
+        dbManager.updateDocument(title, newCopies);
         System.out.println("Updated document: " + title);
       } else {
         System.out.println("Document not found.");
@@ -75,6 +70,7 @@ public class Library {
     Document doc = findDocument(title);
     if (doc != null) {
       doc.printInfo();
+
     } else {
       System.out.println("Document not found.");
     }
@@ -84,9 +80,10 @@ public class Library {
    * In het sach ra.
    */
   public void displayAllDocuments() {
+    ArrayList<Document> documents = dbManager.getAllDocuments();
     for (Document doc : documents) {
       doc.printInfo();
-      System.out.println();
+      System.out.println("\n");
     }
   }
 
@@ -101,8 +98,11 @@ public class Library {
         String adminId = scanner.nextLine();
         System.out.print("Enter admin position: ");
         String position = scanner.nextLine();
-        users.add(new Admin(name, adminId, position));
-        admins.add(new Admin(name, adminId, position));
+
+        Admin admin = new Admin(name, adminId, position);
+
+        dbManager.addAdmin(admin);
+
         System.out.println("Admin added: " + name + "\nID: " + adminId + "\nposition: " + position);
       } else {
         System.out.print("Enter student ID: ");
@@ -111,9 +111,10 @@ public class Library {
         String className = scanner.nextLine();
         System.out.print("Enter course name: ");
         String courseName = scanner.nextLine();
+
         NormalUser student = new NormalUser(name, studentId, className, courseName);
-        users.add(student);
-        students.add(student);
+
+        dbManager.addNormalUser(student);
         System.out.println("User added: " + name + " (Student ID: " + studentId + ")");
       }
     } else {
@@ -125,25 +126,59 @@ public class Library {
    * Tim nguoi dung.
    */
   public NormalUser findUserById(String id) {
-    for (NormalUser student : students) {
-      if (student.getStudentId().equalsIgnoreCase(id)) {
-        return student;
-      }
-    }
-    return null;
+    return dbManager.findNormalUser(id);
   }
 
   public void displayAllStudents() {
-    for (NormalUser student : students) {
+    ArrayList<NormalUser> students = dbManager.getAllNormalUsers();
+    for(NormalUser student: students){
       student.displayUserInfo();
-      System.out.println();
+      System.out.println("\n");
     }
   }
 
   public void displayAllAdmins() {
-    for (Admin admin : admins) {
+    ArrayList<Admin> admins = dbManager.getAllAdmins();
+    for(Admin admin: admins){
       admin.displayUserInfo();
-      System.out.println();
+      System.out.println("\n");
+    }
+  }
+
+  /**
+   * Tra sach.
+   */
+  public Document findDocument(String title) {
+    return dbManager.findDocument(title);
+  }
+
+  /**
+   * muon sach: copiesAvailable - 1.
+   */
+  public void borrowDocument(Document doc, NormalUser student) {
+    if (student.getBorrowedDocument() != null) {
+      System.out.println("User already has a borrowed document.");
+    } else if (doc.getCopiesAvailable() > 0) {
+      student.setBorrowedDocument(doc);
+      dbManager.updateBorrowedDocument(student.getStudentId(), doc.getTitle());
+      doc.setCopiesAvailable(doc.getCopiesAvailable() - 1);
+      System.out.println(student.getName() + " borrowed " + doc.getTitle());
+    } else {
+      System.out.println("No copies available to borrow.");
+    }
+  }
+
+  /**
+   * tra sach: copiesAvailable + 1.
+   */
+  public void returnDocument(NormalUser student) {
+    if (student.getBorrowedDocument() == null) {
+      System.out.println("No document to return.");
+    } else {
+      student.getBorrowedDocument().setCopiesAvailable(student.getBorrowedDocument().getCopiesAvailable() + 1);
+      System.out.println(student.getName() + " returned " + student.getBorrowedDocument().getTitle());
+      dbManager.updateBorrowedDocument(student.getStudentId(), "");
+      student.setBorrowedDocument(null);
     }
   }
 
@@ -151,33 +186,24 @@ public class Library {
    * dang nhap.
    */
   public User login(String username) {
-    for (User user : users) {
-      if (user.getName().equalsIgnoreCase(username)) {
-        return user;
+    // First check among admins
+    ArrayList<Admin> admins = dbManager.getAllAdmins();
+    for (Admin admin : admins) {
+      if (admin.getName().equalsIgnoreCase(username)) {
+        return admin;
       }
     }
+
+    // Then check among normal users
+    ArrayList<NormalUser> students = dbManager.getAllNormalUsers();
+    for (NormalUser student : students) {
+      if (student.getName().equalsIgnoreCase(username)) {
+        return student;
+      }
+    }
+
     return null;
   }
 
-  /**
-   * Tra sach.
-   */
-  public Document findDocument(String title) {
-    for (Document doc : documents) {
-      if (doc.getTitle().equalsIgnoreCase(title)) {
-        return doc;
-      }
-    }
-    return null;
-  }
 
-  public void addDefaultAdmin(Admin admin) {
-    admins.add(admin);
-    users.add(admin);
-  }
-
-  public void addDefaultStudent(NormalUser student) {
-    students.add(student);
-    users.add(student);
-  }
 }

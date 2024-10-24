@@ -1,0 +1,192 @@
+import java.sql.*;
+import java.util.ArrayList;
+
+public class DatabaseManager {
+  private Connection connection;
+
+  public DatabaseManager() {
+    this.connection = DatabaseConnection.getConnection();
+  }
+
+  // Document Operations
+  public void addDocument(Document doc) {
+    String sql = "INSERT INTO document (title, author, copies_available) VALUES (?, ?, ?)";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, doc.getTitle());
+      stmt.setString(2, doc.getAuthor());
+      stmt.setInt(3, doc.getCopiesAvailable());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void removeDocument(String title) {
+    String sql = "DELETE FROM document WHERE title = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, title);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void updateDocument(String title, int newCopies) {
+    String sql = "UPDATE document SET copies_available = ? WHERE title = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setInt(1, newCopies);
+      stmt.setString(2, title);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public Document findDocument(String title) {
+    String sql = "SELECT * FROM document WHERE title = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, title);
+      ResultSet rs = stmt.executeQuery();
+      if (rs.next()) {
+        return new Document(
+            rs.getString("title"),
+            rs.getString("author"),
+            rs.getInt("copies_available")
+        );
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public ArrayList<Document> getAllDocuments() {
+    ArrayList<Document> documents = new ArrayList<>();
+    String sql = "SELECT * FROM document";
+    try (Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)) {
+      while (rs.next()) {
+        documents.add(new Document(
+            rs.getString("title"),
+            rs.getString("author"),
+            rs.getInt("copies_available")
+        ));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return documents;
+  }
+
+  // Admin Operations
+  public void addAdmin(Admin admin) {
+    String sql = "INSERT INTO admin (admin_id, name, position) VALUES (?, ?, ?)";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, admin.getAdminId());
+      stmt.setString(2, admin.getName());
+      stmt.setString(3, admin.getPosition());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public Admin findAdmin(String adminId) {
+    String sql = "SELECT * FROM admin WHERE admin_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, adminId);
+      ResultSet rs = stmt.executeQuery();
+      if (rs.next()) {
+        return new Admin(
+            rs.getString("name"),
+            rs.getString("admin_id"),
+            rs.getString("position")
+        );
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  // NormalUser Operations
+  public void addNormalUser(NormalUser user) {
+    String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name) VALUES (?, ?, ?, ?)";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, user.getStudentId());
+      stmt.setString(2, user.getName());
+      stmt.setString(3, user.getClassName());
+      stmt.setString(4, user.getCourseName());
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public NormalUser findNormalUser(String studentId) {
+    String sql = "SELECT * FROM normal_user WHERE student_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, studentId);
+      ResultSet rs = stmt.executeQuery();
+      if (rs.next()) {
+        return new NormalUser(
+            rs.getString("name"),
+            rs.getString("student_id"),
+            rs.getString("class_name"),
+            rs.getString("course_name")
+        );
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public void updateBorrowedDocument(String studentId, String documentTitle) {
+    String sql = "UPDATE normal_user SET borrowed_document_title = ? WHERE student_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, documentTitle);
+      stmt.setString(2, studentId);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public ArrayList<NormalUser> getAllNormalUsers() {
+    ArrayList<NormalUser> users = new ArrayList<>();
+    String sql = "SELECT * FROM normal_user";
+    try (Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)) {
+      while (rs.next()) {
+        users.add(new NormalUser(
+            rs.getString("name"),
+            rs.getString("student_id"),
+            rs.getString("class_name"),
+            rs.getString("course_name")
+        ));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return users;
+  }
+
+  public ArrayList<Admin> getAllAdmins() {
+    ArrayList<Admin> admins = new ArrayList<>();
+    String sql = "SELECT * FROM admin";
+    try (Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)) {
+      while (rs.next()) {
+        admins.add(new Admin(
+            rs.getString("name"),
+            rs.getString("admin_id"),
+            rs.getString("position")
+        ));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return admins;
+  }
+}

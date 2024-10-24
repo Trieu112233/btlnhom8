@@ -7,12 +7,6 @@ public class LibraryManagementSystem {
     Scanner scanner = new Scanner(System.in);
     User loggedInUser;
 
-    Admin trieu = new Admin("Trieu", "01", "Quan ly");
-    library.addDefaultAdmin(trieu);
-
-    NormalUser quang = new NormalUser("Quang", "02", "k2", "k67");
-    library.addDefaultStudent(quang);
-
     // Đăng nhập
     System.out.print("Enter your username: ");
     String username = scanner.nextLine();
@@ -141,15 +135,13 @@ public class LibraryManagementSystem {
             String docTitle = scanner.nextLine();
             Document doc = library.findDocument(docTitle);
             if (doc != null) {
-              ((NormalUser) loggedInUser).borrowDocument(doc);
-            } else {
-              System.out.println("Document not found.");
+              library.borrowDocument(doc, (NormalUser) loggedInUser);
             }
           }
           break;
         case "4":
           if (loggedInUser instanceof NormalUser) {
-            ((NormalUser) loggedInUser).returnDocument();
+            library.returnDocument((NormalUser) loggedInUser);
           }
           break;
         case "5":

@@ -34,6 +34,10 @@ public class NormalUser extends User {
     return courseName;
   }
 
+  public Document getBorrowedDocument() {
+    return borrowedDocument;
+  }
+
   public void setStudentId(String studentId) {
     this.studentId = studentId;
   }
@@ -44,6 +48,10 @@ public class NormalUser extends User {
 
   public void setCourseName(String courseName) {
     this.courseName = courseName;
+  }
+
+  public void setBorrowedDocument(Document borrowedDocument) {
+    this.borrowedDocument = borrowedDocument;
   }
 
   /**
@@ -70,31 +78,7 @@ public class NormalUser extends User {
     return false;
   }
 
-  /**
-   * muon sach: copiesAvailable - 1.
-   */
-  public void borrowDocument(Document doc) {
-    if (borrowedDocument != null) {
-      System.out.println("User already has a borrowed document.");
-    } else if (doc.getCopiesAvailable() > 0) {
-      borrowedDocument = doc;
-      doc.setCopiesAvailable(doc.getCopiesAvailable() - 1);
-      System.out.println(getName() + " borrowed " + doc.getTitle());
-    } else {
-      System.out.println("No copies available to borrow.");
-    }
-  }
 
-  /**
-   * tra sach: copiesAvailable + 1.
-   */
-  public void returnDocument() {
-    if (borrowedDocument == null) {
-      System.out.println("No document to return.");
-    } else {
-      borrowedDocument.setCopiesAvailable(borrowedDocument.getCopiesAvailable() + 1);
-      System.out.println(getName() + " returned " + borrowedDocument.getTitle());
-      borrowedDocument = null;
-    }
-  }
+
+
 }
