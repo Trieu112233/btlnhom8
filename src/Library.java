@@ -98,8 +98,10 @@ public class Library {
         String adminId = scanner.nextLine();
         System.out.print("Enter admin position: ");
         String position = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
 
-        Admin admin = new Admin(name, adminId, position);
+        Admin admin = new Admin(name,password, adminId, position);
 
         dbManager.addAdmin(admin);
 
@@ -111,8 +113,10 @@ public class Library {
         String className = scanner.nextLine();
         System.out.print("Enter course name: ");
         String courseName = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
 
-        NormalUser student = new NormalUser(name, studentId, className, courseName);
+        NormalUser student = new NormalUser(name, password, studentId, className, courseName);
 
         dbManager.addNormalUser(student);
         System.out.println("User added: " + name + " (Student ID: " + studentId + ")");
