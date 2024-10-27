@@ -6,7 +6,7 @@ public class Library {
   /**
    * Khoi tao thuoc tinh.
    */
-  public DatabaseManager dbManager;
+  private DatabaseManager dbManager;
 
   /**
    * Khoi tao.
@@ -125,8 +125,12 @@ public class Library {
   /**
    * Tim nguoi dung (admin only).
    */
-  public NormalUser findUserById(String id) {
-    return dbManager.findNormalUser(id);
+  public NormalUser findUserById(String Id) {
+    return dbManager.findNormalUser(Id);
+  }
+
+  public Admin findAdminById(String Id){
+    return dbManager.findAdmin(Id);
   }
 
   /**
@@ -152,7 +156,7 @@ public class Library {
   }
 
   /**
-   * Tra cuu sach.
+   * Tra cuu  sach.
    */
   public Document findDocument(String title) {
     return dbManager.findDocument(title);
@@ -193,11 +197,11 @@ public class Library {
   /**
    * dang nhap.
    */
-  public User login(String username) {
+  public User login(String Id, String password) {
     // First check among admins
     ArrayList<Admin> admins = dbManager.getAllAdmins();
     for (Admin admin : admins) {
-      if (admin.getName().equalsIgnoreCase(username)) {
+      if (admin.getAdminId().equalsIgnoreCase(Id) && admin.getPassword().equalsIgnoreCase(password)) {
         return admin;
       }
     }
@@ -205,13 +209,11 @@ public class Library {
     // Then check among normal users
     ArrayList<NormalUser> students = dbManager.getAllNormalUsers();
     for (NormalUser student : students) {
-      if (student.getName().equalsIgnoreCase(username)) {
+      if (student.getStudentId().equalsIgnoreCase(Id) && student.getPassword().equalsIgnoreCase(password)) {
         return student;
       }
     }
-
     return null;
   }
-
 
 }

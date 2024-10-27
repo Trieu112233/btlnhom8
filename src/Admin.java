@@ -15,6 +15,12 @@ public class Admin extends User {
     this.adminId = adminId;
   }
 
+  public Admin(String name,String password, String adminId, String position) {
+    super(name, password);
+    this.position = position;
+    this.adminId = adminId;
+  }
+
   /**
    * getter, setter.
    */
@@ -51,4 +57,5 @@ public class Admin extends User {
   public boolean isAdmin() {
     return true;
   }
+
 }

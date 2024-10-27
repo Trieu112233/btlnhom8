@@ -8,14 +8,29 @@ public class LibraryManagementSystem {
     User loggedInUser;
 
     /** Đăng nhập. */
-    System.out.print("Enter your username: ");
-    String username = scanner.nextLine();
-    loggedInUser = library.login(username);
+    System.out.print("Enter your id: ");
+    String userId = scanner.nextLine();
 
-    if (loggedInUser == null) {
-      System.out.println("User not found! Exiting...");
+    User user = library.findAdminById(userId);
+
+    if(user == null){
+      user = library.findUserById(userId);
+    }
+
+    if(user == null) {
+      System.out.println("Id not existing!");
       return;
     }
+
+    System.out.println("Enter your password: ");
+    String password = scanner.nextLine();
+
+    if(!user.checkPassword(password)){
+      System.out.println("Incorrect password!! Please try again.");
+      return;
+    }
+
+    loggedInUser = library.login(userId, password);
 
     /** Hiển thị menu theo loại người dùng. */
     if (loggedInUser.isAdmin()) {

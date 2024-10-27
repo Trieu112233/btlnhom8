@@ -97,11 +97,12 @@ public class DatabaseManager {
    * them admmin.
    */
   public void addAdmin(Admin admin) {
-    String sql = "INSERT INTO admin (admin_id, name, position) VALUES (?, ?, ?)";
+    String sql = "INSERT INTO admin (admin_id, name, position, PASSWORD) VALUES (?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
       stmt.setString(1, admin.getAdminId());
       stmt.setString(2, admin.getName());
       stmt.setString(3, admin.getPosition());
+      stmt.setString(4, admin.getPassword());
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -119,6 +120,7 @@ public class DatabaseManager {
       if (rs.next()) {
         return new Admin(
             rs.getString("name"),
+            rs.getString("PASSWORD"),
             rs.getString("admin_id"),
             rs.getString("position")
         );
@@ -133,12 +135,13 @@ public class DatabaseManager {
    * them hoc sinh.
    */
   public void addNormalUser(NormalUser user) {
-    String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name) VALUES (?, ?, ?, ?)";
+    String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name, PASSWORD) VALUES (?, ?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
       stmt.setString(1, user.getStudentId());
       stmt.setString(2, user.getName());
       stmt.setString(3, user.getClassName());
       stmt.setString(4, user.getCourseName());
+      stmt.setString(5, user.getPassword());
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -153,6 +156,7 @@ public class DatabaseManager {
       if (rs.next()) {
         return new NormalUser(
             rs.getString("name"),
+            rs.getString("PASSWORD"),
             rs.getString("student_id"),
             rs.getString("class_name"),
             rs.getString("course_name")
@@ -189,6 +193,7 @@ public class DatabaseManager {
       while (rs.next()) {
         users.add(new NormalUser(
             rs.getString("name"),
+            rs.getString("PASSWORD"),
             rs.getString("student_id"),
             rs.getString("class_name"),
             rs.getString("course_name")
@@ -211,6 +216,7 @@ public class DatabaseManager {
       while (rs.next()) {
         admins.add(new Admin(
             rs.getString("name"),
+            rs.getString("PASSWORD"),
             rs.getString("admin_id"),
             rs.getString("position")
         ));
