@@ -12,6 +12,8 @@ public abstract class User {
     this.name = name;
   }
 
+  /** aaaaaa. */
+
   public User(String name, String password) {
     this.name = name;
     this.password = password;
