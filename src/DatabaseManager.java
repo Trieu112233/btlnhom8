@@ -159,7 +159,8 @@ public class DatabaseManager {
             rs.getString("PASSWORD"),
             rs.getString("student_id"),
             rs.getString("class_name"),
-            rs.getString("course_name")
+            rs.getString("course_name"),
+            findDocument(rs.getString("borrowed_document_title"))
         );
       }
     } catch (SQLException e) {
@@ -196,7 +197,8 @@ public class DatabaseManager {
             rs.getString("PASSWORD"),
             rs.getString("student_id"),
             rs.getString("class_name"),
-            rs.getString("course_name")
+            rs.getString("course_name"),
+            findDocument(rs.getString("borrowed_document_title"))
         ));
       }
     } catch (SQLException e) {

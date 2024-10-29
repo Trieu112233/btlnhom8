@@ -27,6 +27,14 @@ public class NormalUser extends User {
     this.borrowedDocument = null;
   }
 
+  public NormalUser(String name, String password, String studentId, String className, String courseName, Document doc) {
+    super(name, password);
+    this.studentId = studentId;
+    this.className = className;
+    this.courseName = courseName;
+    this.borrowedDocument = doc;
+  }
+
   /**
    * getter, setter.
    */
