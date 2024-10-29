@@ -19,7 +19,8 @@ public class NormalUser extends User {
     this.borrowedDocument = null;
   }
 
-  public NormalUser(String name, String password, String studentId, String className, String courseName) {
+  public NormalUser(String name, String password, String studentId, String className,
+      String courseName) {
     super(name, password);
     this.studentId = studentId;
     this.className = className;
@@ -27,7 +28,8 @@ public class NormalUser extends User {
     this.borrowedDocument = null;
   }
 
-  public NormalUser(String name, String password, String studentId, String className, String courseName, Document doc) {
+  public NormalUser(String name, String password, String studentId, String className,
+      String courseName, Document doc) {
     super(name, password);
     this.studentId = studentId;
     this.className = className;

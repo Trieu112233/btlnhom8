@@ -132,6 +132,49 @@ public class DatabaseManager {
   }
 
   /**
+   * checkQuanLy.
+   */
+  public boolean checkQuanLy(String id) {
+    String sql = "SELECT position FROM admin WHERE admin_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, id);
+      ResultSet rs = stmt.executeQuery();
+
+      // Check if the result set has any rows
+      if (rs.next()) {
+        String position = rs.getString("position");
+        // Use .equals() for string comparison
+        return "quan ly".equals(position);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
+
+  /**
+   * tat ca admin.
+   */
+  public ArrayList<Admin> getAllAdmins() {
+    ArrayList<Admin> admins = new ArrayList<>();
+    String sql = "SELECT * FROM admin";
+    try (Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)) {
+      while (rs.next()) {
+        admins.add(new Admin(
+            rs.getString("name"),
+            rs.getString("PASSWORD"),
+            rs.getString("admin_id"),
+            rs.getString("position")
+        ));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return admins;
+  }
+
+  /**
    * them hoc sinh.
    */
   public void addNormalUser(NormalUser user) {
@@ -148,6 +191,9 @@ public class DatabaseManager {
     }
   }
 
+  /**
+   * Tim hoc sinh theo ID.
+   */
   public NormalUser findNormalUser(String studentId) {
     String sql = "SELECT * FROM normal_user WHERE student_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -167,6 +213,32 @@ public class DatabaseManager {
       e.printStackTrace();
     }
     return null;
+  }
+
+  /**
+   * Xoa hoc sinh.
+   */
+  public void removeNormalUser(String studentId) {
+    String sql = "DELETE FROM normal_user WHERE student_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, studentId);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Xoa admin.
+   */
+  public void removeAdmin(String AdminId) {
+    String sql = "DELETE FROM admin WHERE admin_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, AdminId);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -207,25 +279,5 @@ public class DatabaseManager {
     return users;
   }
 
-  /**
-   * tat ca admin.
-   */
-  public ArrayList<Admin> getAllAdmins() {
-    ArrayList<Admin> admins = new ArrayList<>();
-    String sql = "SELECT * FROM admin";
-    try (Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql)) {
-      while (rs.next()) {
-        admins.add(new Admin(
-            rs.getString("name"),
-            rs.getString("PASSWORD"),
-            rs.getString("admin_id"),
-            rs.getString("position")
-        ));
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return admins;
-  }
+
 }

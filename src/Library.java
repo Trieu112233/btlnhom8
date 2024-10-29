@@ -64,7 +64,7 @@ public class Library {
   }
 
   /**
-   * Tim sach.
+   * Hien thong tin sach.
    */
   public void searchDocument(String title) {
     Document doc = findDocument(title);
@@ -74,6 +74,13 @@ public class Library {
     } else {
       System.out.println("Document not found.");
     }
+  }
+
+  /**
+   * Tra cuu  sach.
+   */
+  public Document findDocument(String title) {
+    return dbManager.findDocument(title);
   }
 
   /**
@@ -101,7 +108,7 @@ public class Library {
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 
-        Admin admin = new Admin(name,password, adminId, position);
+        Admin admin = new Admin(name, password, adminId, position);
 
         dbManager.addAdmin(admin);
 
@@ -129,12 +136,16 @@ public class Library {
   /**
    * Tim nguoi dung (admin only).
    */
-  public NormalUser findUserById(String Id) {
+  public NormalUser findNormalUserById(String Id) {
     return dbManager.findNormalUser(Id);
   }
 
-  public Admin findAdminById(String Id){
+  public Admin findAdminById(String Id) {
     return dbManager.findAdmin(Id);
+  }
+
+  public boolean checkQuanLy(String id) {
+    return dbManager.checkQuanLy(id);
   }
 
   /**
@@ -160,10 +171,33 @@ public class Library {
   }
 
   /**
-   * Tra cuu  sach.
+   * Xoa hoc sinh.
    */
-  public Document findDocument(String title) {
-    return dbManager.findDocument(title);
+  public void removeNormalUser(User user, String id) {
+    if (user.isAdmin()) {
+      NormalUser remove_student = findNormalUserById(id);
+      if (remove_student != null) {
+        dbManager.removeNormalUser(id);
+        System.out.println("Student removed.");
+      } else {
+        System.out.println("Student not found.");
+      }
+    } else {
+      System.out.println("Permission denied! Only admins can remove students.");
+    }
+  }
+
+  /**
+   * Xoa admin.
+   */
+  public void removeAdmin(String remove_id) {
+    Admin remove_admin = findAdminById(remove_id);
+    if (remove_admin != null) {
+      dbManager.removeAdmin(remove_id);
+      System.out.println("Admin removed.");
+    } else {
+      System.out.println("Admin not found.");
+    }
   }
 
   /**
@@ -205,7 +239,8 @@ public class Library {
     // First check among admins
     ArrayList<Admin> admins = dbManager.getAllAdmins();
     for (Admin admin : admins) {
-      if (admin.getAdminId().equalsIgnoreCase(Id) && admin.getPassword().equalsIgnoreCase(password)) {
+      if (admin.getAdminId().equalsIgnoreCase(Id) && admin.getPassword()
+          .equalsIgnoreCase(password)) {
         return admin;
       }
     }
@@ -213,7 +248,8 @@ public class Library {
     // Then check among normal users
     ArrayList<NormalUser> students = dbManager.getAllNormalUsers();
     for (NormalUser student : students) {
-      if (student.getStudentId().equalsIgnoreCase(Id) && student.getPassword().equalsIgnoreCase(password)) {
+      if (student.getStudentId().equalsIgnoreCase(Id) && student.getPassword()
+          .equalsIgnoreCase(password)) {
         return student;
       }
     }

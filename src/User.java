@@ -5,6 +5,7 @@ public abstract class User {
    */
   private String name;
   private String password;
+
   /**
    * Khoi tao.
    */
@@ -12,7 +13,9 @@ public abstract class User {
     this.name = name;
   }
 
-  /** aaaaaa. */
+  /**
+   * aaaaaa.
+   */
 
   public User(String name, String password) {
     this.name = name;
@@ -30,7 +33,7 @@ public abstract class User {
     this.name = name;
   }
 
-  public String getPassword(){
+  public String getPassword() {
     return password;
   }
 
@@ -38,12 +41,14 @@ public abstract class User {
     this.password = password;
   }
 
-  public boolean checkPassword(String password){
-    if(this.getPassword().equalsIgnoreCase(password)){
+  public boolean checkPassword(String password) {
+    if (this.getPassword().equalsIgnoreCase(password)) {
       return true;
+    } else {
+      return false;
     }
-    else return false;
   }
+
   /**
    * phuong thuc mac dinh.
    */

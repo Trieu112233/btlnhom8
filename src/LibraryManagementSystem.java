@@ -13,11 +13,11 @@ public class LibraryManagementSystem {
 
     User user = library.findAdminById(userId);
 
-    if(user == null){
-      user = library.findUserById(userId);
+    if (user == null) {
+      user = library.findNormalUserById(userId);
     }
 
-    if(user == null) {
+    if (user == null) {
       System.out.println("Id not existing!");
       return;
     }
@@ -25,16 +25,17 @@ public class LibraryManagementSystem {
     System.out.println("Enter your password: ");
     String password = scanner.nextLine();
 
-    if(!user.checkPassword(password)){
+    if (!user.checkPassword(password)) {
       System.out.println("Incorrect password!! Please try again.");
       return;
     }
 
     loggedInUser = library.login(userId, password);
 
+    boolean checkQuanLy = library.checkQuanLy(userId);
     /** Hiển thị menu theo loại người dùng. */
     if (loggedInUser.isAdmin()) {
-      adminMenu(library, loggedInUser, scanner);
+      adminMenu(library, loggedInUser, scanner, checkQuanLy);
     } else {
       normalUserMenu(library, loggedInUser, scanner);
     }
@@ -43,7 +44,9 @@ public class LibraryManagementSystem {
   /**
    * Admin menu.
    */
-  private static void adminMenu(Library library, User loggedInUser, Scanner scanner) {
+  private static void adminMenu(Library library, User loggedInUser, Scanner scanner,
+      boolean checkQuanLy) {
+    Admin loggedInAdmin = (Admin) loggedInUser;
     String option;
     do {
       System.out.println("\nWelcome Admin, " + loggedInUser.getName() + "!");
@@ -57,6 +60,8 @@ public class LibraryManagementSystem {
       System.out.println("[7] Find User");
       System.out.println("[8] Display All Students");
       System.out.println("[9] Display All Admins");
+      System.out.println("[10] Remove Student");
+      System.out.println("[11] Remove Admin");
       System.out.print("Select an option: ");
       option = scanner.nextLine();
 
@@ -94,20 +99,25 @@ public class LibraryManagementSystem {
           library.displayAllDocuments();
           break;
         case "6":
-          System.out.print("Enter user name: ");
+          System.out.print("Enter user's name: ");
           String name = scanner.nextLine();
           System.out.print("Is this an admin (true/false)? ");
           boolean isAdmin = Boolean.parseBoolean(scanner.nextLine());
-          library.addUser(loggedInUser, name, isAdmin);
+          library.addUser(loggedInAdmin, name, isAdmin);
           break;
         case "7":
-          System.out.print("Enter the user name to search: ");
+          System.out.print("Enter the user's ID to search: ");
           String searchId = scanner.nextLine();
-          User foundUser = library.findUserById(searchId);
+          User foundUser = library.findAdminById(searchId);
           if (foundUser != null) {
             foundUser.displayUserInfo();
           } else {
-            System.out.println("User not found.");
+            foundUser = library.findNormalUserById(searchId);
+            if (foundUser != null) {
+              foundUser.displayUserInfo();
+            } else {
+              System.out.println("User not found.");
+            }
           }
           break;
         case "8":
@@ -115,6 +125,20 @@ public class LibraryManagementSystem {
           break;
         case "9":
           library.displayAllAdmins();
+          break;
+        case "10":
+          System.out.print("Enter student's ID: ");
+          String student_id = scanner.nextLine();
+          library.removeNormalUser(loggedInAdmin, student_id);
+          break;
+        case "11":
+          if (checkQuanLy) {
+            System.out.print("Enter admin's ID: ");
+            String remove_admin_id = scanner.nextLine();
+            library.removeAdmin(remove_admin_id);
+          } else {
+            System.out.println("Permission denied! Only quan ly can remove admins.");
+          }
           break;
         default:
           System.out.println("Invalid option! Please try again.");
