@@ -99,7 +99,7 @@ public class DatabaseManager {
   public void addAdmin(Admin admin) {
     String sql = "INSERT INTO admin (admin_id, name, position, PASSWORD) VALUES (?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, admin.getAdminId());
+      stmt.setString(1, admin.getId());
       stmt.setString(2, admin.getName());
       stmt.setString(3, admin.getPosition());
       stmt.setString(4, admin.getPassword());
@@ -180,7 +180,7 @@ public class DatabaseManager {
   public void addNormalUser(NormalUser user) {
     String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name, PASSWORD) VALUES (?, ?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, user.getStudentId());
+      stmt.setString(1, user.getId());
       stmt.setString(2, user.getName());
       stmt.setString(3, user.getClassName());
       stmt.setString(4, user.getCourseName());

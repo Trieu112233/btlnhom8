@@ -10,15 +10,13 @@ public class Admin extends User {
    * Khoi tao.
    */
   public Admin(String name, String adminId, String position) {
-    super(name);
+    super(name, adminId);
     this.position = position;
-    this.adminId = adminId;
   }
 
   public Admin(String name, String password, String adminId, String position) {
-    super(name, password);
+    super(name, adminId, password);
     this.position = position;
-    this.adminId = adminId;
   }
 
   /**
@@ -32,21 +30,13 @@ public class Admin extends User {
     this.position = position;
   }
 
-  public String getAdminId() {
-    return adminId;
-  }
-
-  public void setAdminId(String adminId) {
-    this.adminId = adminId;
-  }
-
   /**
    * in het ra.
    */
   @Override
   public void displayUserInfo() {
     System.out.println("Admin: " + getName());
-    System.out.println("Id: " + getAdminId());
+    System.out.println("Id: " + getId());
     System.out.println("Position: " + getPosition());
   }
 

@@ -208,7 +208,7 @@ public class Library {
       System.out.println("User already has a borrowed document.");
     } else if (doc.getCopiesAvailable() > 0) {
       student.setBorrowedDocument(doc);
-      dbManager.updateBorrowedDocument(student.getStudentId(), doc.getTitle());
+      dbManager.updateBorrowedDocument(student.getId(), doc.getTitle());
       doc.setCopiesAvailable(doc.getCopiesAvailable() - 1);
       System.out.println(student.getName() + " borrowed " + doc.getTitle());
     } else {
@@ -227,7 +227,7 @@ public class Library {
           .setCopiesAvailable(student.getBorrowedDocument().getCopiesAvailable() + 1);
       System.out.println(
           student.getName() + " returned " + student.getBorrowedDocument().getTitle());
-      dbManager.updateBorrowedDocument(student.getStudentId(), "");
+      dbManager.updateBorrowedDocument(student.getId(), "");
       student.setBorrowedDocument(null);
     }
   }
@@ -239,7 +239,7 @@ public class Library {
     // First check among admins
     ArrayList<Admin> admins = dbManager.getAllAdmins();
     for (Admin admin : admins) {
-      if (admin.getAdminId().equalsIgnoreCase(Id) && admin.getPassword()
+      if (admin.getId().equalsIgnoreCase(Id) && admin.getPassword()
           .equalsIgnoreCase(password)) {
         return admin;
       }
@@ -248,7 +248,7 @@ public class Library {
     // Then check among normal users
     ArrayList<NormalUser> students = dbManager.getAllNormalUsers();
     for (NormalUser student : students) {
-      if (student.getStudentId().equalsIgnoreCase(Id) && student.getPassword()
+      if (student.getId().equalsIgnoreCase(Id) && student.getPassword()
           .equalsIgnoreCase(password)) {
         return student;
       }

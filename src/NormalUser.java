@@ -3,7 +3,6 @@ public class NormalUser extends User {
   /**
    * Khoi tao thuoc tinh.
    */
-  private String studentId;
   private String className;
   private String courseName;
   private Document borrowedDocument;
@@ -12,8 +11,7 @@ public class NormalUser extends User {
    * Khoi tao.
    */
   public NormalUser(String name, String studentId, String className, String courseName) {
-    super(name);
-    this.studentId = studentId;
+    super(name, studentId);
     this.className = className;
     this.courseName = courseName;
     this.borrowedDocument = null;
@@ -21,8 +19,7 @@ public class NormalUser extends User {
 
   public NormalUser(String name, String password, String studentId, String className,
       String courseName) {
-    super(name, password);
-    this.studentId = studentId;
+    super(name, studentId, password);
     this.className = className;
     this.courseName = courseName;
     this.borrowedDocument = null;
@@ -30,8 +27,7 @@ public class NormalUser extends User {
 
   public NormalUser(String name, String password, String studentId, String className,
       String courseName, Document doc) {
-    super(name, password);
-    this.studentId = studentId;
+    super(name, studentId, password);
     this.className = className;
     this.courseName = courseName;
     this.borrowedDocument = doc;
@@ -40,9 +36,6 @@ public class NormalUser extends User {
   /**
    * getter, setter.
    */
-  public String getStudentId() {
-    return studentId;
-  }
 
   public String getClassName() {
     return className;
@@ -56,9 +49,6 @@ public class NormalUser extends User {
     return borrowedDocument;
   }
 
-  public void setStudentId(String studentId) {
-    this.studentId = studentId;
-  }
 
   public void setClassName(String className) {
     this.className = className;
@@ -78,7 +68,7 @@ public class NormalUser extends User {
   @Override
   public void displayUserInfo() {
     System.out.println("User: " + getName());
-    System.out.println("Student ID: " + studentId);
+    System.out.println("Student ID: " + getId());
     System.out.println("Class: " + className);
     System.out.println("Course: " + courseName);
     if (borrowedDocument != null) {
