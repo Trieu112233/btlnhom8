@@ -18,48 +18,36 @@ public class Library {
   /**
    * Them sach (admin only).
    */
-  public void addDocument(User user, String title, String author, int copiesAvailable) {
-    if (user.isAdmin()) {
-      Document doc = new Document(title, author, copiesAvailable);
-      dbManager.addDocument(doc);
-      System.out.println("Document added: " + title);
-    } else {
-      System.out.println("Permission denied! Only admins can add documents.");
-    }
+  public void addDocument(String title, String author, int copiesAvailable) {
+    Document doc = new Document(title, author, copiesAvailable);
+    dbManager.addDocument(doc);
+    System.out.println("Document added: " + title);
   }
 
   /**
    * Xoa sach (admin only).
    */
-  public void removeDocument(User user, String title) {
-    if (user.isAdmin()) {
-      Document doc = findDocument(title);
-      if (doc != null) {
-        dbManager.removeDocument(title);
-        System.out.println("Document removed: " + title);
-      } else {
-        System.out.println("Document not found.");
-      }
+  public void removeDocument(String title) {
+    Document doc = findDocument(title);
+    if (doc != null) {
+      dbManager.removeDocument(title);
+      System.out.println("Document removed: " + title);
     } else {
-      System.out.println("Permission denied! Only admins can remove documents.");
+      System.out.println("Document not found.");
     }
   }
 
   /**
    * Cap nhat sach (admin only).
    */
-  public void updateDocument(User user, String title, int newCopies) {
-    if (user.isAdmin()) {
-      Document doc = findDocument(title);
-      if (doc != null) {
-        doc.setCopiesAvailable(newCopies);
-        dbManager.updateDocument(title, newCopies);
-        System.out.println("Updated document: " + title);
-      } else {
-        System.out.println("Document not found.");
-      }
+  public void updateDocument(String title, int newCopies) {
+    Document doc = findDocument(title);
+    if (doc != null) {
+      doc.setCopiesAvailable(newCopies);
+      dbManager.updateDocument(title, newCopies);
+      System.out.println("Updated document: " + title);
     } else {
-      System.out.println("Permission denied! Only admins can update documents.");
+      System.out.println("Document not found.");
     }
   }
 
@@ -97,41 +85,38 @@ public class Library {
   /**
    * Them nguoi dung (admin only).
    */
-  public void addUser(User user, String name, boolean isAdmin) {
-    if (user.isAdmin()) {
-      Scanner scanner = new Scanner(System.in);
-      if (isAdmin) {
-        System.out.print("Enter admin ID: ");
-        String adminId = scanner.nextLine();
-        System.out.print("Enter admin position: ");
-        String position = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
+  public void addUser(String name, boolean isAdmin) {
+    Scanner scanner = new Scanner(System.in);
+    if (isAdmin) {
+      System.out.print("Enter admin ID: ");
+      String adminId = scanner.nextLine();
+      System.out.print("Enter admin position: ");
+      String position = scanner.nextLine();
+      System.out.print("Enter password: ");
+      String password = scanner.nextLine();
 
-        Admin admin = new Admin(name, password, adminId, position);
+      Admin admin = new Admin(name, password, adminId, position);
 
-        dbManager.addAdmin(admin);
+      dbManager.addAdmin(admin);
 
-        System.out.println("Admin added: " + name + "\nID: " + adminId + "\nposition: " + position);
-      } else {
-        System.out.print("Enter student ID: ");
-        String studentId = scanner.nextLine();
-        System.out.print("Enter class name: ");
-        String className = scanner.nextLine();
-        System.out.print("Enter course name: ");
-        String courseName = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-
-        NormalUser student = new NormalUser(name, password, studentId, className, courseName);
-
-        dbManager.addNormalUser(student);
-        System.out.println("User added: " + name + " (Student ID: " + studentId + ")");
-      }
+      System.out.println("Admin added: " + name + "\nID: " + adminId + "\nposition: " + position);
     } else {
-      System.out.println("Permission denied! Only admins can add users.");
+      System.out.print("Enter student ID: ");
+      String studentId = scanner.nextLine();
+      System.out.print("Enter class name: ");
+      String className = scanner.nextLine();
+      System.out.print("Enter course name: ");
+      String courseName = scanner.nextLine();
+      System.out.print("Enter password: ");
+      String password = scanner.nextLine();
+
+      NormalUser student = new NormalUser(name, password, studentId, className, courseName);
+
+      dbManager.addNormalUser(student);
+      System.out.println("User added: " + name + " (Student ID: " + studentId + ")");
     }
   }
+
 
   /**
    * Tim nguoi dung (admin only).
@@ -173,19 +158,16 @@ public class Library {
   /**
    * Xoa hoc sinh.
    */
-  public void removeNormalUser(User user, String id) {
-    if (user.isAdmin()) {
-      NormalUser remove_student = findNormalUserById(id);
-      if (remove_student != null) {
-        dbManager.removeNormalUser(id);
-        System.out.println("Student removed.");
-      } else {
-        System.out.println("Student not found.");
-      }
+  public void removeNormalUser(String id) {
+    NormalUser remove_student = findNormalUserById(id);
+    if (remove_student != null) {
+      dbManager.removeNormalUser(id);
+      System.out.println("Student removed.");
     } else {
-      System.out.println("Permission denied! Only admins can remove students.");
+      System.out.println("Student not found.");
     }
   }
+
 
   /**
    * Xoa admin.

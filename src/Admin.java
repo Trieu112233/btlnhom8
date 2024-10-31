@@ -4,7 +4,6 @@ public class Admin extends User {
    * Chuc vu.
    */
   private String position;
-  private String adminId;
 
   /**
    * Khoi tao.

@@ -76,19 +76,19 @@ public class LibraryManagementSystem {
           String author = scanner.nextLine();
           System.out.print("Enter number of copies: ");
           int copies = Integer.parseInt(scanner.nextLine());
-          library.addDocument(loggedInUser, title, author, copies);
+          library.addDocument(title, author, copies);
           break;
         case "2":
           System.out.print("Enter title: ");
           title = scanner.nextLine();
-          library.removeDocument(loggedInUser, title);
+          library.removeDocument(title);
           break;
         case "3":
           System.out.print("Enter title: ");
           title = scanner.nextLine();
           System.out.print("Enter new number of copies: ");
           copies = Integer.parseInt(scanner.nextLine());
-          library.updateDocument(loggedInUser, title, copies);
+          library.updateDocument(title, copies);
           break;
         case "4":
           System.out.print("Enter title: ");
@@ -103,7 +103,7 @@ public class LibraryManagementSystem {
           String name = scanner.nextLine();
           System.out.print("Is this an admin (true/false)? ");
           boolean isAdmin = Boolean.parseBoolean(scanner.nextLine());
-          library.addUser(loggedInAdmin, name, isAdmin);
+          library.addUser(name, isAdmin);
           break;
         case "7":
           System.out.print("Enter the user's ID to search: ");
@@ -129,7 +129,7 @@ public class LibraryManagementSystem {
         case "10":
           System.out.print("Enter student's ID: ");
           String student_id = scanner.nextLine();
-          library.removeNormalUser(loggedInAdmin, student_id);
+          library.removeNormalUser(student_id);
           break;
         case "11":
           if (checkQuanLy) {
