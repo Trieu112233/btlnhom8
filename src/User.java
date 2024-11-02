@@ -24,7 +24,7 @@ public abstract class User {
     this.Id = Id;
     this.password = password;
   }
-
+  /** scwsdws. */
   /**
    * getter, setter.
    */
