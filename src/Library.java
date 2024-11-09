@@ -185,32 +185,38 @@ public class Library {
   /**
    * muon sach: copiesAvailable - 1.
    */
-  public void borrowDocument(Document doc, NormalUser student) {
-    if (student.getBorrowedDocument() != null) {
-      System.out.println("User already has a borrowed document.");
-    } else if (doc.getCopiesAvailable() > 0) {
-      student.setBorrowedDocument(doc);
-      dbManager.updateBorrowedDocument(student.getId(), doc.getTitle());
-      doc.setCopiesAvailable(doc.getCopiesAvailable() - 1);
-      System.out.println(student.getName() + " borrowed " + doc.getTitle());
+  public void borrowDocument(String title, NormalUser student) {
+    if (!student.checkBorrowedDocument(title)) {
+      Document doc = findDocument(title);
+      if (doc.getCopiesAvailable() > 0) {
+        student.addBorrowedDocument(doc);
+        dbManager.addBorrowedDocument(student.getId(), title);
+        dbManager.updateDocument(title, doc.getCopiesAvailable() - 1);
+        System.out.println(student.getName() + " borrowed " + title);
+      } else {
+        System.out.println("No copies available to borrow.");
+      }
     } else {
-      System.out.println("No copies available to borrow.");
+      System.out.println(student.getName() + "has borrowed " + title + " before!");
     }
   }
 
   /**
    * tra sach: copiesAvailable + 1.
    */
-  public void returnDocument(NormalUser student) {
-    if (student.getBorrowedDocument() == null) {
+  public void returnDocument(NormalUser student, String title) {
+    if (student.getBorrowedDocument().isEmpty()) {
       System.out.println("No document to return.");
     } else {
-      student.getBorrowedDocument()
-          .setCopiesAvailable(student.getBorrowedDocument().getCopiesAvailable() + 1);
-      System.out.println(
-          student.getName() + " returned " + student.getBorrowedDocument().getTitle());
-      dbManager.updateBorrowedDocument(student.getId(), "");
-      student.setBorrowedDocument(null);
+      if (student.checkBorrowedDocument(title)) {
+        Document doc = student.findBorrowedDocument(title);
+        student.removeBorrowedDocument(doc);
+        dbManager.removeBorrowedDocument(student.getId(), title);
+        dbManager.updateDocument(title, dbManager.findDocument(title).getCopiesAvailable() + 1);
+        System.out.println(student.getName() + " returned " + title);
+      } else {
+        System.out.println("Student has not borrowed " + title + " yet!");
+      }
     }
   }
 

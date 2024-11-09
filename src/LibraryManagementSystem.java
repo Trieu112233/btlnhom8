@@ -175,19 +175,17 @@ public class LibraryManagementSystem {
           library.displayAllDocuments();
           break;
         case "3":
-          if (loggedInUser instanceof NormalUser) {
-            System.out.print("Enter document title: ");
-            String docTitle = scanner.nextLine();
-            Document doc = library.findDocument(docTitle);
-            if (doc != null) {
-              library.borrowDocument(doc, (NormalUser) loggedInUser);
-            }
+          System.out.print("Enter document title: ");
+          String docTitle = scanner.nextLine();
+          Document doc = library.findDocument(docTitle);
+          if (doc != null) {
+            library.borrowDocument(docTitle, (NormalUser) loggedInUser);
           }
           break;
         case "4":
-          if (loggedInUser instanceof NormalUser) {
-            library.returnDocument((NormalUser) loggedInUser);
-          }
+          System.out.println("Enter document title: ");
+          String docTitle1 = scanner.nextLine();
+          library.returnDocument((NormalUser) loggedInUser, docTitle1);
           break;
         case "5":
           loggedInUser.displayUserInfo();

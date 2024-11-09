@@ -1,5 +1,6 @@
 import java.sql.*;
 import java.util.ArrayList;
+import javax.print.Doc;
 
 public class DatabaseManager {
 
@@ -178,17 +179,41 @@ public class DatabaseManager {
    * them hoc sinh.
    */
   public void addNormalUser(NormalUser user) {
-    String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name, PASSWORD) VALUES (?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO normal_user (student_id, name, class_name, course_name, PASSWORD, number_of_borrowed_document) VALUES (?, ?, ?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
       stmt.setString(1, user.getId());
       stmt.setString(2, user.getName());
       stmt.setString(3, user.getClassName());
       stmt.setString(4, user.getCourseName());
       stmt.setString(5, user.getPassword());
+      stmt.setInt(6, 0);
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Lấy danh sách tài liệu được mượn theo ID sinh viên.
+   */
+  public ArrayList<Document> getAllBorrowedDocument(String id) {
+    ArrayList<Document> documents = new ArrayList<>();
+    String sql = "SELECT book_name FROM borrow_management WHERE student_id = ?";
+
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, id);
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        String title = rs.getString("book_name");
+        Document document = findDocument(title);
+        documents.add(document);
+      }
+      return documents;
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return new ArrayList<>();
   }
 
   /**
@@ -206,7 +231,7 @@ public class DatabaseManager {
             rs.getString("student_id"),
             rs.getString("class_name"),
             rs.getString("course_name"),
-            findDocument(rs.getString("borrowed_document_title"))
+            getAllBorrowedDocument(studentId)
         );
       }
     } catch (SQLException e) {
@@ -242,12 +267,44 @@ public class DatabaseManager {
   }
 
   /**
-   * muon tra sach.
+   * them muon sach.
    */
-  public void updateBorrowedDocument(String studentId, String documentTitle) {
-    String sql = "UPDATE normal_user SET borrowed_document_title = ? WHERE student_id = ?";
+  public void addBorrowedDocument(String studentId, String documentTitle) {
+    String sql = "INSERT INTO borrow_management (student_id, book_name) VALUES (?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, documentTitle);
+      stmt.setString(1, studentId);
+      stmt.setString(2, documentTitle);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    String sql1 = "UPDATE normal_user SET number_of_borrowed_document = ? where student_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql1)) {
+      stmt.setInt(1, findNormalUser(studentId).getNumberOfBorrowedDocument());
+      stmt.setString(2, studentId);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Xoa muon sach
+   */
+  public void removeBorrowedDocument(String studentId, String documentTitle) {
+    String sql = "DELETE FROM borrow_management WHERE student_id = ? AND book_name = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, studentId);
+      stmt.setString(2, documentTitle);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    String sql1 = "UPDATE normal_user SET number_of_borrowed_document = ? where student_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql1)) {
+      stmt.setInt(1, findNormalUser(studentId).getNumberOfBorrowedDocument());
       stmt.setString(2, studentId);
       stmt.executeUpdate();
     } catch (SQLException e) {
@@ -270,7 +327,7 @@ public class DatabaseManager {
             rs.getString("student_id"),
             rs.getString("class_name"),
             rs.getString("course_name"),
-            findDocument(rs.getString("borrowed_document_title"))
+            getAllBorrowedDocument(rs.getString("student_id"))
         ));
       }
     } catch (SQLException e) {

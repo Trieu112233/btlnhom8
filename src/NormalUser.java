@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class NormalUser extends User {
 
   /**
@@ -5,7 +8,8 @@ public class NormalUser extends User {
    */
   private String className;
   private String courseName;
-  private Document borrowedDocument;
+  private int numberOfBorrowedDocument;
+  private List<Document> borrowedDocument;
 
   /**
    * Khoi tao.
@@ -14,7 +18,8 @@ public class NormalUser extends User {
     super(name, studentId);
     this.className = className;
     this.courseName = courseName;
-    this.borrowedDocument = null;
+    this.numberOfBorrowedDocument = 0;
+    this.borrowedDocument = new ArrayList<Document>();
   }
 
   public NormalUser(String name, String password, String studentId, String className,
@@ -22,14 +27,16 @@ public class NormalUser extends User {
     super(name, studentId, password);
     this.className = className;
     this.courseName = courseName;
-    this.borrowedDocument = null;
+    this.numberOfBorrowedDocument = 0;
+    this.borrowedDocument = new ArrayList<Document>();
   }
 
   public NormalUser(String name, String password, String studentId, String className,
-      String courseName, Document doc) {
+      String courseName, List<Document> doc) {
     super(name, studentId, password);
     this.className = className;
     this.courseName = courseName;
+    this.numberOfBorrowedDocument = doc.size();
     this.borrowedDocument = doc;
   }
 
@@ -45,7 +52,7 @@ public class NormalUser extends User {
     return courseName;
   }
 
-  public Document getBorrowedDocument() {
+  public List<Document> getBorrowedDocument() {
     return borrowedDocument;
   }
 
@@ -58,8 +65,22 @@ public class NormalUser extends User {
     this.courseName = courseName;
   }
 
-  public void setBorrowedDocument(Document borrowedDocument) {
-    this.borrowedDocument = borrowedDocument;
+  public void setNumberOfBorrowedDocument(int numberOfBorrowedDocument) {
+    this.numberOfBorrowedDocument = numberOfBorrowedDocument;
+  }
+
+  public int getNumberOfBorrowedDocument() {
+    return numberOfBorrowedDocument;
+  }
+
+  public void addBorrowedDocument(Document borrowedDocument) {
+    this.borrowedDocument.add(borrowedDocument);
+    setNumberOfBorrowedDocument(this.numberOfBorrowedDocument + 1);
+  }
+
+  public void removeBorrowedDocument(Document borrowedDocument) {
+    this.borrowedDocument.remove(borrowedDocument);
+    setNumberOfBorrowedDocument(this.numberOfBorrowedDocument - 1);
   }
 
   /**
@@ -71,11 +92,41 @@ public class NormalUser extends User {
     System.out.println("Student ID: " + getId());
     System.out.println("Class: " + className);
     System.out.println("Course: " + courseName);
-    if (borrowedDocument != null) {
-      System.out.println("Borrowed Document: " + borrowedDocument.getTitle());
-    } else {
-      System.out.println("No borrowed document.");
+    System.out.println("Number of borrowed document: " + numberOfBorrowedDocument);
+    if (!borrowedDocument.isEmpty()) {
+      System.out.println("Borrowed Document:" + "\n");
+      for (Document doc : this.borrowedDocument) {
+        System.out.println(doc.getTitle() + "\n");
+      }
     }
+  }
+
+  /**
+   * Kiem tra xem da muon sach nay chua.
+   */
+  public boolean checkBorrowedDocument(String title) {
+    boolean check = false;
+    for (Document doc1 : this.borrowedDocument) {
+      if (doc1.getTitle().equalsIgnoreCase(title)) {
+        check = true;
+        break;
+      }
+    }
+    return check;
+  }
+
+  /**
+   * tra ve doi tuong document.
+   */
+  public Document findBorrowedDocument(String title) {
+    Document doc = null;
+    for (Document doc1 : this.borrowedDocument) {
+      if (doc1.getTitle().equalsIgnoreCase(title)) {
+        doc = doc1;
+        break;
+      }
+    }
+    return doc;
   }
 
   /**
