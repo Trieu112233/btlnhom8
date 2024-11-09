@@ -1,1 +1,1 @@
-![image](https://github.com/user-attachments/assets/9da2277e-8e1a-4b45-8680-c71f884e29e0)
+![Class Diagram](https://github.com/user-attachments/assets/e8601521-7fb1-483b-8b0c-256f4c32155c)
