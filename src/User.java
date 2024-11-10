@@ -11,7 +11,7 @@ public abstract class User {
    * Khoi tao.
    */
 
-  public User(){
+  public User() {
 
   }
 
@@ -29,7 +29,7 @@ public abstract class User {
     this.Id = Id;
     this.password = password;
   }
-  /** scwsdws. */
+
   /**
    * getter, setter.
    */
