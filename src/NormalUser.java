@@ -9,7 +9,7 @@ public class NormalUser extends User {
   private String className;
   private String courseName;
   private int numberOfBorrowedDocument;
-  private List<Document> borrowedDocument;
+  private ArrayList<Document> borrowedDocument;
 
   /**
    * Khoi tao.
@@ -37,7 +37,7 @@ public class NormalUser extends User {
   }
 
   public NormalUser(String name, String password, String studentId, String className,
-      String courseName, List<Document> doc) {
+      String courseName, ArrayList<Document> doc) {
     super(name, studentId, password);
     this.className = className;
     this.courseName = courseName;
@@ -60,7 +60,6 @@ public class NormalUser extends User {
   public List<Document> getBorrowedDocument() {
     return borrowedDocument;
   }
-
 
   public void setClassName(String className) {
     this.className = className;

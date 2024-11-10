@@ -176,6 +176,19 @@ public class DatabaseManager {
   }
 
   /**
+   * Xoa admin.
+   */
+  public void removeAdmin(String AdminId) {
+    String sql = "DELETE FROM admin WHERE admin_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, AdminId);
+      stmt.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
    * them hoc sinh.
    */
   public void addNormalUser(NormalUser user) {
@@ -191,29 +204,6 @@ public class DatabaseManager {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }
-
-  /**
-   * Lấy danh sách tài liệu được mượn theo ID sinh viên.
-   */
-  public ArrayList<Document> getAllBorrowedDocument(String id) {
-    ArrayList<Document> documents = new ArrayList<>();
-    String sql = "SELECT book_name FROM borrow_management WHERE student_id = ?";
-
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, id);
-      ResultSet rs = stmt.executeQuery();
-
-      while (rs.next()) {
-        String title = rs.getString("book_name");
-        Document document = findDocument(title);
-        documents.add(document);
-      }
-      return documents;
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return new ArrayList<>();
   }
 
   /**
@@ -254,16 +244,26 @@ public class DatabaseManager {
   }
 
   /**
-   * Xoa admin.
+   * Lấy danh sách tài liệu được mượn theo ID sinh viên.
    */
-  public void removeAdmin(String AdminId) {
-    String sql = "DELETE FROM admin WHERE admin_id = ?";
+  public ArrayList<Document> getAllBorrowedDocument(String id) {
+    ArrayList<Document> documents = new ArrayList<>();
+    String sql = "SELECT book_name FROM borrow_management WHERE student_id = ?";
+
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, AdminId);
-      stmt.executeUpdate();
+      stmt.setString(1, id);
+      ResultSet rs = stmt.executeQuery();
+
+      while (rs.next()) {
+        String title = rs.getString("book_name");
+        Document document = findDocument(title);
+        documents.add(document);
+      }
+      return documents;
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return new ArrayList<>();
   }
 
   /**
