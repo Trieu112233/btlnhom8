@@ -10,6 +10,10 @@ public class Document {
   /**
    * Khoi tao.
    */
+  public Document() {
+
+  }
+
   public Document(String title, String author, int copiesAvailable) {
     this.title = title;
     this.author = author;

@@ -10,6 +10,11 @@ public abstract class User {
   /**
    * Khoi tao.
    */
+
+  public User(){
+
+  }
+
   public User(String name, String id) {
     this.name = name;
     this.Id = id;

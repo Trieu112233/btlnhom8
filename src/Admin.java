@@ -8,6 +8,10 @@ public class Admin extends User {
   /**
    * Khoi tao.
    */
+  public Admin() {
+
+  }
+
   public Admin(String name, String adminId, String position) {
     super(name, adminId);
     this.position = position;

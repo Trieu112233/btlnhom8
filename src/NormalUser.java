@@ -14,6 +14,11 @@ public class NormalUser extends User {
   /**
    * Khoi tao.
    */
+
+  public NormalUser() {
+
+  }
+
   public NormalUser(String name, String studentId, String className, String courseName) {
     super(name, studentId);
     this.className = className;
@@ -81,6 +86,15 @@ public class NormalUser extends User {
   public void removeBorrowedDocument(Document borrowedDocument) {
     this.borrowedDocument.remove(borrowedDocument);
     setNumberOfBorrowedDocument(this.numberOfBorrowedDocument - 1);
+  }
+
+  /** Tra ve String title borrowed Doc. */
+  public ArrayList<String> getAllDocumentsTitle(){
+    ArrayList<String> title = new ArrayList<>();
+    for(Document doc : this.borrowedDocument){
+      title.add(doc.getTitle());
+    }
+    return title;
   }
 
   /**
