@@ -161,13 +161,16 @@ public class Library {
   public void removeNormalUser(String id) {
     NormalUser remove_student = findNormalUserById(id);
     if (remove_student != null) {
-      dbManager.removeNormalUser(id);
-      System.out.println("Student removed.");
+      if (dbManager.checkBorrowedDocument(id)) {
+        System.out.println("Student has not returned all borrowed documents! Can not remove!");
+      } else {
+        dbManager.removeNormalUser(id);
+        System.out.println("Student removed.");
+      }
     } else {
       System.out.println("Student not found.");
     }
   }
-
 
   /**
    * Xoa admin.

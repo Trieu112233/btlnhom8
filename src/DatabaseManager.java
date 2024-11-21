@@ -231,6 +231,26 @@ public class DatabaseManager {
   }
 
   /**
+   * Kiem tra xem hoc sinh co dang muon sach hay khong.
+   */
+  public boolean checkBorrowedDocument(String studentId) {
+    String sql = "SELECT number_of_borrowed_document FROM normal_user WHERE student_id = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, studentId);
+      ResultSet rs = stmt.executeQuery();
+
+      if (rs.next()) {
+        int borrowedCount = rs.getInt("number_of_borrowed_document");
+        return borrowedCount > 0;
+      }
+      return false;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return false; // Xảy ra lỗi truy vấn
+    }
+  }
+
+  /**
    * Xoa hoc sinh.
    */
   public void removeNormalUser(String studentId) {
