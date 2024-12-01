@@ -1,5 +1,6 @@
 package GUI.NormalUser;
 
+import GUI.BackgroundPanel;
 import main_class.NormalUser;
 
 import GUI.Login.Login;
@@ -38,7 +39,7 @@ public class MainViewUser extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
-    backgroundPanel = new javax.swing.JPanel();
+    backgroundPanel = new BackgroundPanel("/image/backgroundUser.jpg");
     titleUserLabel = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     userTextArea = new javax.swing.JTextArea();
@@ -97,7 +98,7 @@ public class MainViewUser extends javax.swing.JFrame {
     });
 
     backButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    backButton.setText("Sign out");
+    backButton.setText("Đăng xuất");
     backButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backButtonActionPerformed(evt);
@@ -203,7 +204,7 @@ public class MainViewUser extends javax.swing.JFrame {
           .append("Class: ").append(user.getClassName()).append("\n\n")
           .append("Course: ").append(user.getCourseName()).append("\n\n")
           .append("Borrowed Documents: ").append(user.getNumberOfBorrowedDocument()).append("\n\n")
-          .append("|-----------------------------------------------------------");
+          .append("|--------------------------------------------------------");
 
       userTextArea.setText(userInfo.toString());
     } else {

@@ -40,7 +40,6 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     dbManager = new DatabaseManager();
     jPanel1.setBackground(Color.WHITE);
     setLocationRelativeTo(null);
-    //setSize(1100, 700);
   }
 
   /**
@@ -430,11 +429,10 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
         dbManager.addDocument(document);
         JOptionPane.showMessageDialog(this, "Thêm tài liệu mới thành công!", "Thông báo",
             JOptionPane.INFORMATION_MESSAGE);
+        new AddDocumentAdmin(idAdmin).setVisible(true);
+        this.dispose();
       }
 
-      // Quay lại giao diện chính
-      //new MainViewAdmin(idAdmin).setVisible(true);
-      //this.dispose();
     } catch (NumberFormatException e) {
       JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho số bản!", "Thông báo",
           JOptionPane.ERROR_MESSAGE);
