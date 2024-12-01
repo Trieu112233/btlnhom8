@@ -8,7 +8,6 @@ public class ImageLinks {
   private String large;
   private String extraLarge;
 
-  // Getter và Setter cho các thuộc tính
   public String getThumbnail() {
     return thumbnail;
   }

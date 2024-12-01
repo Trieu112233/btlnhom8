@@ -24,6 +24,24 @@ import java.net.URL;
 
 public class FindDocumentAdmin extends javax.swing.JFrame {
 
+  private javax.swing.JLabel authorLabel;
+  private javax.swing.JLabel authorLabel2;
+  private javax.swing.JButton backButton;
+  private javax.swing.JLabel bookTitleLabel;
+  private javax.swing.JLabel bookTitleLabel2;
+  private javax.swing.JLabel describleLabel;
+  private javax.swing.JLabel enterBookTitleLabel;
+  private javax.swing.JTextField enterBookTitleTextField;
+  private javax.swing.JLabel findDocumentLabel;
+  private javax.swing.JLabel imageLabel;
+  private javax.swing.JPanel jPanel1;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JTextArea jTextArea1;
+  private javax.swing.JLabel numberOfCopiesAvailableLabel;
+  private javax.swing.JLabel numberOfCopiesAvailableLabel2;
+  private javax.swing.JButton qrButton;
+  private javax.swing.JPopupMenu popupMenu;
+
   Document document;
   private String idAdmin;
   private Book bookA;
@@ -347,7 +365,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
     // Tạo mã QR từ thông tin tài liệu
     try {
-      QRCodeGenerator.generateQRCode(bookA, filePath); // Tạo QR code mới
+      QRCodeGenerator.generateQRCode(document.getPreviewLink(), filePath); // Tạo QR code mới
       ShowQRAddDoc showQR = new ShowQRAddDoc();
       showQR.setVisible(true);
 
@@ -355,7 +373,8 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
       Image qrImage = ImageIO.read(new File(filePath));
       showQR.QRLabel.setIcon(new ImageIcon(qrImage));
     } catch (IOException e) {
-      JOptionPane.showMessageDialog(this, "Lỗi khi đọc hình ảnh: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Lỗi khi đọc hình ảnh: " + e.getMessage(), "Lỗi",
+          JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }
   }
@@ -413,12 +432,14 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
             DatabaseManager databaseManager = new DatabaseManager();
 
             // Kiểm tra sách trong cơ sở dữ liệu
-            Document existingDocument = databaseManager.getDocumentByTitle(query);
+            Document existingDocument = databaseManager.findDocument(query);
             if (existingDocument != null) {
               // Sách đã tồn tại trong CSDL, cập nhật giao diện với thông tin từ CSDL
+              document = existingDocument;
               SwingUtilities.invokeLater(() -> {
                 updateUIWithDocument(existingDocument);
               });
+
               return; // Kết thúc luồng nếu tìm thấy trong CSDL
             }
 
@@ -467,8 +488,8 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
                         ? book.getVolumeInfo().getImageLinks().getThumbnail() : "";
                     document.setImage(imageUrl);
 
-                    bookA.setVolumeInfo(book.getVolumeInfo());
-                    bookA.getVolumeInfo().setPreviewLink(book.getVolumeInfo().getPreviewLink());
+                    document.setPreviewLink(book.getVolumeInfo().getPreviewLink() != null
+                        ? book.getVolumeInfo().getPreviewLink() : "No preview link available.");
 
                     updateUIWithDocument(document);
                     isUpdating = false; // Kết thúc trạng thái cập nhật
@@ -486,6 +507,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
           }
         }).start();
       });
+
       typingTimer.setRepeats(false); // Đảm bảo chỉ gọi một lần sau khoảng thời gian trễ
       typingTimer.start(); // Bắt đầu
     } else {
@@ -529,21 +551,4 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
     });
   }
 
-  private javax.swing.JLabel authorLabel;
-  private javax.swing.JLabel authorLabel2;
-  private javax.swing.JButton backButton;
-  private javax.swing.JLabel bookTitleLabel;
-  private javax.swing.JLabel bookTitleLabel2;
-  private javax.swing.JLabel describleLabel;
-  private javax.swing.JLabel enterBookTitleLabel;
-  private javax.swing.JTextField enterBookTitleTextField;
-  private javax.swing.JLabel findDocumentLabel;
-  private javax.swing.JLabel imageLabel;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JTextArea jTextArea1;
-  private javax.swing.JLabel numberOfCopiesAvailableLabel;
-  private javax.swing.JLabel numberOfCopiesAvailableLabel2;
-  private javax.swing.JButton qrButton;
-  private javax.swing.JPopupMenu popupMenu;
 }

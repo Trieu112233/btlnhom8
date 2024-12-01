@@ -11,8 +11,6 @@ public class VolumeInfo {
   private ImageLinks imageLinks; // Đảm bảo imageLinks là kiểu ImageLinks
   private String previewLink;
 
-  // Getter và Setter
-
   public void setTitle(String title) {
     this.title = title;
   }
@@ -56,5 +54,4 @@ public class VolumeInfo {
     return authors.stream().map(String::trim).filter(name -> !name.isEmpty()).collect(
         Collectors.toList());
   }
-
 }

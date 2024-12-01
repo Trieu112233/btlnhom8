@@ -11,6 +11,18 @@ import java.awt.*;
 
 public class DeleteDocumentAdmin extends javax.swing.JFrame {
 
+  private javax.swing.JButton backButton;
+  private javax.swing.JButton checkButton;
+  private javax.swing.JLabel copiesAvailableLabel;
+  private javax.swing.JLabel deleteCopiesLabel;
+  private javax.swing.JTextField deleteCopiesTextField;
+  private javax.swing.JPanel jPanel1;
+  private javax.swing.JLabel nameAuthorLabel;
+  private javax.swing.JLabel nameDocumentLabel;
+  private javax.swing.JTextField nameDocumentTextField;
+  private javax.swing.JButton submitButton;
+  private javax.swing.JLabel titleLabel;
+
   private String idAdmin;
 
   public DeleteDocumentAdmin(String idAdmin) {
@@ -243,7 +255,6 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
   }
 
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     String nameDocument = nameDocumentTextField.getText().trim();
     String cop = deleteCopiesTextField.getText().trim();
 
@@ -294,7 +305,6 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     }
   }
 
-
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     dispose(); // Tắt cửa s�� hiện tại
@@ -337,16 +347,5 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     });
   }
 
-  private javax.swing.JButton backButton;
-  private javax.swing.JButton checkButton;
-  private javax.swing.JLabel copiesAvailableLabel;
-  private javax.swing.JLabel deleteCopiesLabel;
-  private javax.swing.JTextField deleteCopiesTextField;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JLabel nameAuthorLabel;
-  private javax.swing.JLabel nameDocumentLabel;
-  private javax.swing.JTextField nameDocumentTextField;
-  private javax.swing.JButton submitButton;
-  private javax.swing.JLabel titleLabel;
 }
 

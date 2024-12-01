@@ -10,6 +10,7 @@ public class Document {
   private int copiesAvailable;
   private String description;
   private String image;
+  private String previewLink;
 
   /**
    * Khoi tao.
@@ -30,6 +31,16 @@ public class Document {
     this.copiesAvailable = copiesAvailable;
     this.description = descripition;
     this.image = image;
+  }
+
+  public Document(String title, String author, int copiesAvailable, String descripition,
+      String image, String previewLink) {
+    this.title = title;
+    this.author = author;
+    this.copiesAvailable = copiesAvailable;
+    this.description = descripition;
+    this.image = image;
+    this.previewLink = previewLink;
   }
 
   /**
@@ -73,6 +84,14 @@ public class Document {
 
   public void setImage(String image) {
     this.image = image;
+  }
+
+  public String getPreviewLink() {
+    return previewLink;
+  }
+
+  public void setPreviewLink(String previewLink) {
+    this.previewLink = previewLink;
   }
 
   /**

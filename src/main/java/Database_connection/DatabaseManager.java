@@ -29,11 +29,11 @@ public class DatabaseManager {
    * them sach.
    */
   public void addDocument(Document doc) {
-    String sql = "INSERT INTO document (title, author, copies_available, description, image) VALUES (?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO document (title, author, copies_available, description, image, previewLink) VALUES (?, ?, ?, ?, ?, ?)";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
       // Kiểm tra độ dài title (giới hạn 50 ký tự hoặc giá trị trong cơ sở dữ liệu)
       String truncatedTitle =
-          doc.getTitle().length() > 50 ? doc.getTitle().substring(0, 50) : doc.getTitle();
+          doc.getTitle().length() > 500 ? doc.getTitle().substring(0, 500) : doc.getTitle();
 
       // Kiểm tra image nếu không phải là null, nó phải là một URL hợp lệ
       String image = doc.getImage();
@@ -47,6 +47,7 @@ public class DatabaseManager {
       stmt.setInt(3, doc.getCopiesAvailable());
       stmt.setString(4, doc.getDescription());
       stmt.setString(5, image); // Nếu image là null, lưu null vào cơ sở dữ liệu
+      stmt.setString(6, doc.getPreviewLink());
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -102,7 +103,8 @@ public class DatabaseManager {
             rs.getString("author"),
             rs.getInt("copies_available"),
             rs.getString("description"),
-            rs.getString("image")
+            rs.getString("image"),
+            rs.getString("previewLink")
         );
       }
     } catch (SQLException e) {
@@ -125,7 +127,8 @@ public class DatabaseManager {
             rs.getString("author"),
             rs.getInt("copies_available"),
             rs.getString("description"),
-            rs.getString("image")
+            rs.getString("image"),
+            rs.getString("previewLink")
         ));
       }
     } catch (SQLException e) {
@@ -496,6 +499,7 @@ public class DatabaseManager {
         document.setDescription(resultSet.getString("description"));
         document.setImage(resultSet.getString("image"));
         document.setCopiesAvailable(resultSet.getInt("copies_available"));
+        document.setPreviewLink(resultSet.getString("previewLink"));
         return document;
       }
     } catch (SQLException e) {

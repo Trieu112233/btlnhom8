@@ -1,6 +1,5 @@
 package QR;
 
-import API.Book;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -10,13 +9,11 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
-import main_class.Document;
 
 public class QRCodeGenerator {
 
-  public static void generateQRCode(Book book, String filePath) {
+  public static void generateQRCode(String previewLink, String filePath) {
     // Concatenate book details into a single formatted string
-    String qrCodeData = book.getVolumeInfo().getPreviewLink();
 
     int width = 300;  // Width of the QR code
     int height = 300; // Height of the QR code
@@ -26,7 +23,7 @@ public class QRCodeGenerator {
       QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
       // Encode the book data into a QR code
-      BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeData, BarcodeFormat.QR_CODE, width, height);
+      BitMatrix bitMatrix = qrCodeWriter.encode(previewLink, BarcodeFormat.QR_CODE, width, height);
 
       // Define the file path for the QR code image
       Path path = FileSystems.getDefault().getPath(filePath);

@@ -42,7 +42,6 @@ public class Login extends javax.swing.JFrame {
   }
 
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -348,7 +347,7 @@ public class Login extends javax.swing.JFrame {
     );
 
     pack();
-  }// </editor-fold>
+  }
 
   private void signInAdminButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // Lấy thông tin từ các trường nhập liệu
@@ -381,7 +380,6 @@ public class Login extends javax.swing.JFrame {
   }
 
   private void signInUserButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     // Lấy thông tin từ các trường nhập liệu
     String userId = idUserFormattedTextField.getText();
     String password = String.valueOf(userPasswordField.getPassword());
@@ -432,9 +430,6 @@ public class Login extends javax.swing.JFrame {
     signInUserButtonActionPerformed(null);
   }
 
-  /**
-   * @param args the command line arguments
-   */
   public static void main(String args[]) {
     try {
       for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -456,7 +451,6 @@ public class Login extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(Login.class.getName())
           .log(java.util.logging.Level.SEVERE, null, ex);
     }
-    //</editor-fold>
 
     /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -466,8 +460,5 @@ public class Login extends javax.swing.JFrame {
     });
   }
 
-  // Variables declaration - do not modify
-
-  // End of variables declaration
 }
 

@@ -5,15 +5,26 @@ import main_class.NormalUser;
 import GUI.Admin.MainViewAdmin;
 
 import Database_connection.DatabaseManager;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AddUserAdmin extends javax.swing.JFrame {
+
+  private javax.swing.JButton backButton;
+  private javax.swing.JLabel classLabel;
+  private javax.swing.JTextField classTextField;
+  private javax.swing.JLabel courseLabel;
+  private javax.swing.JTextField courseTextField;
+  private javax.swing.JLabel idLabel;
+  private javax.swing.JTextField idTextField;
+  private javax.swing.JPanel jPanel1;
+  private javax.swing.JLabel nameLabel;
+  private javax.swing.JTextField nameTextField;
+  private javax.swing.JLabel passwordLabel;
+  private javax.swing.JTextField passwordTextField;
+  private javax.swing.JButton submitButton;
+  private javax.swing.JLabel titleLabel;
 
   private String idAdmin;
 
@@ -305,16 +316,11 @@ public class AddUserAdmin extends javax.swing.JFrame {
   }
 
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     new MainViewAdmin(idAdmin).setVisible(true); // Quay lại giao diện chính
     this.dispose(); // Đóng cửa sổ hiện tại
   }
 
-  /**
-   * @param args the command line arguments
-   */
   public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
     //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
     /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
      * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
@@ -341,7 +347,6 @@ public class AddUserAdmin extends javax.swing.JFrame {
     }
     //</editor-fold>
 
-    /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
         new AddUserAdmin("22022132").setVisible(true);
@@ -349,21 +354,5 @@ public class AddUserAdmin extends javax.swing.JFrame {
     });
   }
 
-  // Variables declaration - do not modify
-  private javax.swing.JButton backButton;
-  private javax.swing.JLabel classLabel;
-  private javax.swing.JTextField classTextField;
-  private javax.swing.JLabel courseLabel;
-  private javax.swing.JTextField courseTextField;
-  private javax.swing.JLabel idLabel;
-  private javax.swing.JTextField idTextField;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JLabel nameLabel;
-  private javax.swing.JTextField nameTextField;
-  private javax.swing.JLabel passwordLabel;
-  private javax.swing.JTextField passwordTextField;
-  private javax.swing.JButton submitButton;
-  private javax.swing.JLabel titleLabel;
-  // End of variables declaration
 }
 
