@@ -345,8 +345,14 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
 
   private Timer typingTimer;
+  private boolean isUpdating = false;
 
   private void updateSuggestions() {
+
+    if (isUpdating) {
+      return; // Không làm gì nếu đang trong trạng thái cập nhật
+    }
+
     String query = enterBookTitleTextField.getText().trim();
 
     // Ẩn popup cũ trước khi bắt đầu cập nhật
@@ -404,28 +410,23 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
                   String title = book.getVolumeInfo().getTitle();
                   JMenuItem item = new JMenuItem(title);
                   item.addActionListener(e1 -> {
-                    // Cập nhật JTextField với tiêu đề sách đã chọn
+                    isUpdating = true; // Bắt đầu trạng thái cập nhật
                     enterBookTitleTextField.setText(item.getText());
-                    popupMenu.setVisible(false); // Ẩn popup menu khi người dùng chọn sách
+                    popupMenu.setVisible(false); // Ẩn popup menu
 
-                    // Tạo tài liệu từ thông tin API
-                    document.setTitle(book.getVolumeInfo().getTitle());
-                    document.setAuthor(book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
-                        book.getVolumeInfo().getAuthorNames()) : "N/A");
-                    document.setDescription(
-                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo().getDescription()
-                            : "No description available.");
-
-                    // Lấy URL hình ảnh từ API nếu có
-                    String imageUrl = "";
-                    if (book.getVolumeInfo().getImageLinks() != null) {
-                      imageUrl = book.getVolumeInfo().getImageLinks().getThumbnail() != null
-                          ? book.getVolumeInfo().getImageLinks().getThumbnail() : "";
-                    }
-
-                    document.setImage(imageUrl);
                     // Cập nhật giao diện
+                    document.setTitle(book.getVolumeInfo().getTitle());
+                    document.setAuthor(book.getVolumeInfo().getAuthorNames() != null
+                        ? String.join(", ", book.getVolumeInfo().getAuthorNames()) : "N/A");
+                    document.setDescription(book.getVolumeInfo().getDescription() != null
+                        ? book.getVolumeInfo().getDescription() : "No description available.");
+
+                    String imageUrl = book.getVolumeInfo().getImageLinks() != null
+                        ? book.getVolumeInfo().getImageLinks().getThumbnail() : "";
+                    document.setImage(imageUrl);
+
                     updateUIWithDocument(document);
+                    isUpdating = false; // Kết thúc trạng thái cập nhật
                   });
                   popupMenu.add(item);
                 }
