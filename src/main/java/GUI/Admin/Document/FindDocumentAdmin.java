@@ -2,6 +2,7 @@ package GUI.Admin.Document;
 
 import static QR.QRCodeGenerator.generateQRCode;
 
+import QR.QRCodeGenerator;
 import main_class.Document;
 
 import GUI.Admin.MainViewAdmin;
@@ -310,13 +311,23 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
   }
 
   private void qrButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
+    // Tạo đường dẫn lưu QR Code
+    String filePath = "C:\\Users\\THINK W530\\Documents\\GitHub\\btlnhom8\\src\\image\\qr\\qr.png";
+
+    // Tạo mã QR từ thông tin tài liệu
+    try {
+      QRCodeGenerator.generateQRCode(document, filePath);
+
+      // Tải hình ảnh QR vừa tạo và setIcon cho qrLabel
+      ImageIcon qrIcon = new ImageIcon(filePath);
+      Image scaledImage = qrIcon.getImage().getScaledInstance(qrLabel.getWidth(), qrLabel.getHeight(), Image.SCALE_SMOOTH);
+      qrLabel.setIcon(new ImageIcon(scaledImage));
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(this, "Lỗi khi tạo QR Code: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+      e.printStackTrace();
+    }
   }
 
-  private void qrcodeButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    generateQRCode(document,"D:/OOP/thuchanh/proj/library management/src/main/java/image/qr/adminImage.jpg");
-    new ShowQR().setVisible(true);
-  }
 
   private void updateUIWithDocument(Document document) {
     // Cập nhật thông tin sách lên các label và textArea
