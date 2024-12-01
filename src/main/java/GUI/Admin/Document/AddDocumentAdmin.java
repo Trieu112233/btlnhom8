@@ -1,6 +1,6 @@
 package GUI.Admin.Document;
 
-import static library.QRCodeGenerator.generateQRCode;
+import static QR.QRCodeGenerator.generateQRCode;
 
 import main_class.Document;
 
@@ -9,6 +9,8 @@ import GUI.Admin.MainViewAdmin;
 import Database_connection.DatabaseManager;
 
 import API.*;
+
+import QR.QRCodeGenerator;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

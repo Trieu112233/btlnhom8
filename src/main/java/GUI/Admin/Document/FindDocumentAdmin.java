@@ -1,6 +1,6 @@
 package GUI.Admin.Document;
 
-import static library.QRCodeGenerator.generateQRCode;
+import static QR.QRCodeGenerator.generateQRCode;
 
 import main_class.Document;
 
@@ -307,7 +307,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
   }
 
   private void qrcodeButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    generateQRCode(document,"C:\\Users\\ACER\\Documents\\GitHub\\btlnhom8\\src\\main\\java\\image\\qr\\qr.png");
+    generateQRCode(document,"D:/OOP/thuchanh/proj/library management/src/main/java/image/qr/adminImage.jpg");
     new ShowQR().setVisible(true);
   }
 
