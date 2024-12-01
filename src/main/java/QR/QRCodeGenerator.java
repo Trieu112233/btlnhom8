@@ -1,5 +1,6 @@
 package QR;
 
+import API.Book;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -13,34 +14,30 @@ import main_class.Document;
 
 public class QRCodeGenerator {
 
-    public static void generateQRCode(Document document, String filePath) {
-        // Concatenate book details into a single formatted string
-        String qrCodeData = "====== Book Details ======\n" + "|" +
-                "Name      : " + document.getTitle() + "\n" + " |" +
-                "Authors   : " + document.getAuthor() + "\n" + " |" +
-                "Description  : " + document.getDescription() + "\n" + " |" +
-                "==========================";
+  public static void generateQRCode(Book book, String filePath) {
+    // Concatenate book details into a single formatted string
+    String qrCodeData = book.getVolumeInfo().getPreviewLink();
 
-        int width = 300;  // Width of the QR code
-        int height = 300; // Height of the QR code
+    int width = 300;  // Width of the QR code
+    int height = 300; // Height of the QR code
 
-        try {
-            // Create a QR code writer
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+    try {
+      // Create a QR code writer
+      QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-            // Encode the book data into a QR code
-            BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeData, BarcodeFormat.QR_CODE, width, height);
+      // Encode the book data into a QR code
+      BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeData, BarcodeFormat.QR_CODE, width, height);
 
-            // Define the file path for the QR code image
-            Path path = FileSystems.getDefault().getPath(filePath);
+      // Define the file path for the QR code image
+      Path path = FileSystems.getDefault().getPath(filePath);
 
-            // Write the QR code to the file
-            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+      // Write the QR code to the file
+      MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 
-            System.out.println("QR Code for book generated successfully at: " + filePath);
-        } catch (WriterException | IOException e) {
-            System.err.println("Error generating QR code: " + e.getMessage());
-        }
+      System.out.println("QR Code for book generated successfully at: " + filePath);
+    } catch (WriterException | IOException e) {
+      System.err.println("Error generating QR code: " + e.getMessage());
     }
+  }
 
 }

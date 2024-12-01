@@ -9,6 +9,7 @@ public class VolumeInfo {
   private List<String> authors;
   private String description;
   private ImageLinks imageLinks; // Đảm bảo imageLinks là kiểu ImageLinks
+  private String previewLink;
 
   // Getter và Setter
 
@@ -38,6 +39,14 @@ public class VolumeInfo {
 
   public ImageLinks getImageLinks() {
     return imageLinks;
+  }
+
+  public String getPreviewLink() {
+    return previewLink;
+  }
+
+  public void setPreviewLink(String previewLink) {
+    this.previewLink = previewLink;
   }
 
   public List<String> getAuthorNames() {
