@@ -355,15 +355,9 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     submitButtonActionPerformed(null);
   }
 
-  private void qrcodeButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    generateQRCode(document,
-        "C:\\Users\\ACER\\Documents\\GitHub\\btlnhom8\\src\\main\\java\\image\\qr\\qr.png");
-    new ShowQR().setVisible(true);
-  }
-
   private void qrButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // Tạo đường dẫn lưu QR Code
-    String filePath = "C:\\Users\\THINK W530\\Documents\\GitHub\\btlnhom8\\src\\image\\qr\\qr.png";
+    String filePath = "src/main/java/image/qr/qr.png";
 
     // Tạo mã QR từ thông tin tài liệu
     try {

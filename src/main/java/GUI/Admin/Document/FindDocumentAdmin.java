@@ -312,7 +312,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
   private void qrButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // Tạo đường dẫn lưu QR Code
-    String filePath = "C:\\Users\\THINK W530\\Documents\\GitHub\\btlnhom8\\src\\image\\qr\\qr.png";
+    String filePath = "src/main/java/image/qr/qr.png";
 
     // Tạo mã QR từ thông tin tài liệu
     try {
