@@ -357,7 +357,7 @@ public class Login extends javax.swing.JFrame {
 
     // Kiểm tra nếu bất kỳ trường nào bị bỏ trống
     if (adminId.isEmpty() || password.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ ID và Password", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter both ID and Password", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -368,14 +368,14 @@ public class Login extends javax.swing.JFrame {
 
     if (isAuthenticated) {
       // Đăng nhập thành công
-      JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Logged in successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
       // Mở MainView và đóng giao diện hiện tại
       new MainViewAdmin(adminId).setVisible(true);
       this.dispose();
     } else {
       // Đăng nhập thất bại
-      JOptionPane.showMessageDialog(this, "ID hoặc Password không chính xác", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Wrong ID or password", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -388,7 +388,7 @@ public class Login extends javax.swing.JFrame {
 
     // Kiểm tra nếu bất kỳ trường nào bị bỏ trống
     if (userId.isEmpty() || password.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ ID và Password", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter both ID and Password", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -399,14 +399,14 @@ public class Login extends javax.swing.JFrame {
 
     if (isAuthenticated) {
       // Đăng nhập thành công
-      JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Logged in successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
       // Mở MainView và đóng giao diện hiện tại
       new MainViewUser(userId).setVisible(true);
       this.dispose();
     } else {
       // Đăng nhập thất bại
-      JOptionPane.showMessageDialog(this, "ID hoặc Password không chính xác", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Wrong ID or Password", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }

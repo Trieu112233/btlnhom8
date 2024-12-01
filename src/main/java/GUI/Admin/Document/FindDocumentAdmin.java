@@ -1,5 +1,7 @@
 package GUI.Admin.Document;
 
+import static library.QRCodeGenerator.generateQRCode;
+
 import main_class.Document;
 
 import GUI.Admin.MainViewAdmin;
@@ -42,7 +44,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
     document = new Document();
     jPanel1.setBackground(Color.WHITE);
     setLocationRelativeTo(null);
-    setSize(1100, 600);
+    //setSize(1100, 600);
   }
 
   /**
@@ -68,7 +70,8 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
     imageLabel = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     jTextArea1 = new javax.swing.JTextArea();
-    popupMenu = new javax.swing.JPopupMenu(); // Khởi tạo JPopupMenu
+    popupMenu = new javax.swing.JPopupMenu();
+    qrcodeButton = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -175,130 +178,90 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
     jTextArea1.setRows(5);
     jScrollPane1.setViewportView(jTextArea1);
 
+    qrcodeButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+    qrcodeButton.setText("QR Code");
+    qrcodeButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        qrcodeButtonActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel1Layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(findDocumentLabel,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(enterBookTitleLabel,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, 129,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(
-                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(enterBookTitleTextField))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                    jPanel1Layout.createSequentialGroup()
-                                        .addComponent(authorLabel,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE, 129,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(authorLabel2,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                    jPanel1Layout.createSequentialGroup()
-                                        .addComponent(bookTitleLabel,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE, 129,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(bookTitleLabel2,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE, 582,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(
-                                            javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26,
-                                            Short.MAX_VALUE)
-                                        .addComponent(numberOfCopiesAvailableLabel,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE, 124,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(numberOfCopiesAvailableLabel2,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE, 205,
-                                            javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(describleLabel,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, 201,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                    116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                    727, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(findDocumentLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(enterBookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(enterBookTitleTextField))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(authorLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(bookTitleLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(numberOfCopiesAvailableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(numberOfCopiesAvailableLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(qrcodeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(describleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(findDocumentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(enterBookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(enterBookTitleTextField,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 49,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(findDocumentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(enterBookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(enterBookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(bookTitleLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                            jPanel1Layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(numberOfCopiesAvailableLabel,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(numberOfCopiesAvailableLabel2,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookTitleLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(numberOfCopiesAvailableLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(numberOfCopiesAvailableLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(authorLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(authorLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(describleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252,
-                                Short.MAX_VALUE)
-                            .addGap(18, 18, 18)
-                            .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39,
-                                javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(describleLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(6, 6, 6)))
-                .addContainerGap())
+                            .addGap(262, 262, 262)
+                            .addComponent(qrcodeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -341,6 +304,11 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
   private void bookTitleLabel2AncestorAdded(javax.swing.event.AncestorEvent evt) {
     // TODO add your handling code here:
+  }
+
+  private void qrcodeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    generateQRCode(document,"C:\\Users\\ACER\\Documents\\GitHub\\btlnhom8\\src\\main\\java\\image\\qr\\qr.png");
+    new ShowQR().setVisible(true);
   }
 
   private void updateUIWithDocument(Document document) {
@@ -436,12 +404,10 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
                     // Tạo tài liệu từ thông tin API
                     Document document = new Document();
                     document.setTitle(book.getVolumeInfo().getTitle());
-                    document.setAuthor(
-                        book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
-                            book.getVolumeInfo().getAuthorNames()) : "N/A");
+                    document.setAuthor(book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
+                        book.getVolumeInfo().getAuthorNames()) : "N/A");
                     document.setDescription(
-                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo()
-                            .getDescription()
+                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo().getDescription()
                             : "No description available.");
 
                     // Lấy URL hình ảnh từ API nếu có
@@ -532,6 +498,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
   private javax.swing.JTextArea jTextArea1;
   private javax.swing.JLabel numberOfCopiesAvailableLabel;
   private javax.swing.JLabel numberOfCopiesAvailableLabel2;
+  private javax.swing.JButton qrcodeButton;
   private javax.swing.JPopupMenu popupMenu;
   // End of variables declaration
 }

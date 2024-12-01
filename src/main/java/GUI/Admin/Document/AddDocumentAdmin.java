@@ -1,5 +1,7 @@
 package GUI.Admin.Document;
 
+import static library.QRCodeGenerator.generateQRCode;
+
 import main_class.Document;
 
 import GUI.Admin.MainViewAdmin;
@@ -69,7 +71,8 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     addDocLabel = new javax.swing.JLabel();
     addBookTextField = new javax.swing.JTextField();
     submitButton = new javax.swing.JButton();
-    popupMenu = new javax.swing.JPopupMenu(); // Khởi tạo JPopupMenu
+    popupMenu = new javax.swing.JPopupMenu();
+    qrcodeButton = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -195,6 +198,14 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
       }
     });
 
+    qrcodeButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+    qrcodeButton.setText("QR Code");
+    qrcodeButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        qrcodeButtonActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
@@ -251,21 +262,30 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(
-                                    javax.swing.GroupLayout.Alignment.LEADING)
+                                    javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(imageLabel,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 357,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(qrcodeButton,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 110,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addContainerGap()
                                     .addComponent(describleLabel,
                                         javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(imageLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(addDocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(
                                     javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(addBookTextField)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(addDocLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(addBookTextField,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 403,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jScrollPane1)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
@@ -327,7 +347,9 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
                                     javax.swing.GroupLayout.PREFERRED_SIZE, 49,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(addDocLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                    43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(qrcodeButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                    41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(describleLabel, javax.swing.GroupLayout.PREFERRED_SIZE,
                                 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,6 +412,12 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
   private void addBookTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     // TODO add your handling code here:
     submitButtonActionPerformed(null);
+  }
+
+  private void qrcodeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    generateQRCode(document,
+        "C:\\Users\\ACER\\Documents\\GitHub\\btlnhom8\\src\\main\\java\\image\\qr\\qr.png");
+    new ShowQR().setVisible(true);
   }
 
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -634,6 +662,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
   private javax.swing.JTextArea jTextArea1;
   private javax.swing.JLabel numberOfCopiesAvailableLabel;
   private javax.swing.JLabel numberOfCopiesAvailableLabel2;
+  private javax.swing.JButton qrcodeButton;
   private javax.swing.JButton submitButton;
   private javax.swing.JPopupMenu popupMenu;
   // End of variables declaration
