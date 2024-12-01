@@ -436,10 +436,12 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
                     // Tạo tài liệu từ thông tin API
                     Document document = new Document();
                     document.setTitle(book.getVolumeInfo().getTitle());
-                    document.setAuthor(book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
-                        book.getVolumeInfo().getAuthorNames()) : "N/A");
+                    document.setAuthor(
+                        book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
+                            book.getVolumeInfo().getAuthorNames()) : "N/A");
                     document.setDescription(
-                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo().getDescription()
+                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo()
+                            .getDescription()
                             : "No description available.");
 
                     // Lấy URL hình ảnh từ API nếu có

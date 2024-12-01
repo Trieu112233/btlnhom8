@@ -2,7 +2,7 @@ package GUI.Admin.User;
 
 import main_class.Admin;
 
-import  GUI.Admin.MainViewAdmin;
+import GUI.Admin.MainViewAdmin;
 
 import Database_connection.DatabaseManager;
 

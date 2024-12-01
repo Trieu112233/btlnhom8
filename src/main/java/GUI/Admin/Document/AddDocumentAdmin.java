@@ -30,6 +30,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
   DatabaseManager dbManager;
   Document document;
   private String idAdmin;
+
   /**
    * Creates new form FindDocumentUser
    */
@@ -394,7 +395,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
   private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {
     String noc = addBookTextField.getText().trim();
 
-    if(document == null){
+    if (document == null) {
       JOptionPane.showMessageDialog(this, "Vui lòng chọn một sách từ danh sách!", "Thông báo",
           JOptionPane.ERROR_MESSAGE);
       return;
@@ -421,7 +422,8 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
         // Tài liệu đã tồn tại, cộng thêm số bản
         int updatedCopies = existingDocument.getCopiesAvailable() + numberOfCopies;
         dbManager.updateDocument(document.getTitle(), updatedCopies);
-        JOptionPane.showMessageDialog(this, "Thêm sách thành công", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Thêm sách thành công", "Thành công",
+            JOptionPane.INFORMATION_MESSAGE);
         new MainViewAdmin(idAdmin).setVisible(true);
         this.dispose();
       } else {
@@ -535,10 +537,12 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
                     // Tạo tài liệu từ thông tin API
                     document.setTitle(book.getVolumeInfo().getTitle());
-                    document.setAuthor(book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
-                        book.getVolumeInfo().getAuthorNames()) : "N/A");
+                    document.setAuthor(
+                        book.getVolumeInfo().getAuthorNames() != null ? String.join(", ",
+                            book.getVolumeInfo().getAuthorNames()) : "N/A");
                     document.setDescription(
-                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo().getDescription()
+                        book.getVolumeInfo().getDescription() != null ? book.getVolumeInfo()
+                            .getDescription()
                             : "No description available.");
 
                     // Lấy URL hình ảnh từ API nếu có

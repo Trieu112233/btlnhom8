@@ -39,7 +39,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
    */
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated Code">
-  private void initComponents(){
+  private void initComponents() {
 
     backgroundPanel = new BackgroundPanel("/image/backgroundAdmin.png");
 
@@ -69,12 +69,15 @@ public class MainViewAdmin extends javax.swing.JFrame {
     adminTextArea.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
     adminTextArea.setRows(1);
     adminTextArea.setTabSize(6);
+    adminTextArea.setCaretColor(Color.white);
     adminTextArea.addAncestorListener(new javax.swing.event.AncestorListener() {
       public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
         adminTextAreaAncestorAdded(evt);
       }
+
       public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
       }
+
       public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
       }
     });
@@ -82,14 +85,35 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     findDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     findDocumentButton.setText("Search Document");
+    findDocumentButton.setBackground(new java.awt.Color(34, 139, 34)); // Đặt màu nền của nút
+    findDocumentButton.setForeground(java.awt.Color.WHITE); // Đặt màu chữ của nút thành trắng
+    findDocumentButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    findDocumentButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     findDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         findDocumentButtonActionPerformed(evt);
       }
     });
 
-    borrowDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    borrowDocumentButton.setText("Borrow Document");
+    addDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    addDocumentButton.setText("Add Document");
+    addDocumentButton.setBackground(new java.awt.Color(34, 139, 34)); // Đặt màu nền của nút
+    addDocumentButton.setForeground(java.awt.Color.WHITE); // Đặt màu chữ của nút thành trắng
+    addDocumentButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    addDocumentButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
+    addDocumentButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        addDocumentButtonActionPerformed(evt);
+      }
+    });
+
+    borrowDocumentButton.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD,
+        12)); // Đặt font chữ với kiểu in đậm và kích thước 12
+    borrowDocumentButton.setText("Borrow Document"); // Đặt văn bản cho nút
+    borrowDocumentButton.setBackground(new java.awt.Color(34, 139, 34)); // Đặt màu nền của nút
+    borrowDocumentButton.setForeground(java.awt.Color.WHITE); // Đặt màu chữ của nút thành trắng
+    borrowDocumentButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    borrowDocumentButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     borrowDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         borrowDocumentButtonActionPerformed(evt);
@@ -98,6 +122,10 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     returnDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     returnDocumentButton.setText("Return Document");
+    returnDocumentButton.setBackground(new java.awt.Color(34, 139, 34)); // Đặt màu nền của nút
+    returnDocumentButton.setForeground(java.awt.Color.WHITE); // Đặt màu chữ của nút thành trắng
+    returnDocumentButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    returnDocumentButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     returnDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnDocumentButtonActionPerformed(evt);
@@ -106,7 +134,8 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     backButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     backButton.setText("Sign Out");
-    backButton.setBackground(Color.cyan);
+    backButton.setBackground(Color.RED);
+    backButton.setForeground(Color.WHITE);
     backButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backButtonActionPerformed(evt);
@@ -115,6 +144,10 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     addUserButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     addUserButton.setText("Add User");
+    addUserButton.setBackground(new java.awt.Color(30, 58, 95)); // Đặt màu nền của nút
+    addUserButton.setForeground(Color.WHITE); // Đặt màu chữ của nút thành trắng
+    addUserButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    addUserButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     addUserButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addUserButtonActionPerformed(evt);
@@ -123,22 +156,22 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     addAdminButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     addAdminButton.setText("Add Admin");
+    addAdminButton.setBackground(new java.awt.Color(30, 58, 95)); // Đặt màu nền của nút
+    addAdminButton.setForeground(Color.WHITE); // Đặt màu chữ của nút thành trắng
+    addAdminButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    addAdminButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     addAdminButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addAdminButtonActionPerformed(evt);
       }
     });
 
-    addDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    addDocumentButton.setText("Add Document");
-    addDocumentButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        addDocumentButtonActionPerformed(evt);
-      }
-    });
-
     deleteUserButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     deleteUserButton.setText("Delete User");
+    deleteUserButton.setBackground(new java.awt.Color(169, 169, 169)); // Đặt màu nền của nút
+    deleteUserButton.setForeground(Color.BLACK); // Đặt màu chữ của nút thành trắng
+    deleteUserButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    deleteUserButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteUserButtonActionPerformed(evt);
@@ -147,6 +180,10 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     deleteAdminButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     deleteAdminButton.setText("Delete Admin");
+    deleteAdminButton.setBackground(new java.awt.Color(169, 169, 169)); // Đặt màu nền của nút
+    deleteAdminButton.setForeground(Color.BLACK); // Đặt màu chữ của nút thành trắng
+    deleteAdminButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    deleteAdminButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     deleteAdminButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteAdminButtonActionPerformed(evt);
@@ -155,6 +192,10 @@ public class MainViewAdmin extends javax.swing.JFrame {
 
     deleteDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     deleteDocumentButton.setText("Delete Document");
+    deleteDocumentButton.setBackground(new java.awt.Color(169, 169, 169)); // Đặt màu nền của nút
+    deleteDocumentButton.setForeground(Color.BLACK); // Đặt màu chữ của nút thành trắng
+    deleteDocumentButton.setBorderPainted(false); // Tắt viền nếu muốn nút trông mượt mà hơn
+    deleteDocumentButton.setFocusPainted(false); // Tắt hiệu ứng viền khi nút được chọn
     deleteDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteDocumentButtonActionPerformed(evt);
@@ -167,70 +208,143 @@ public class MainViewAdmin extends javax.swing.JFrame {
         backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titleAdminLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(backgroundPanelLayout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleAdminLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 342,
+                            Short.MAX_VALUE)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(backgroundPanelLayout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(findDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(borrowDocumentButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(returnDocumentButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addDocumentButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(deleteDocumentButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(deleteAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addAdminButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                            .addComponent(deleteUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(63, 63, 63))))
+                                .addGap(95, 95, 95)
+                                .addGroup(backgroundPanelLayout.createParallelGroup(
+                                        javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(findDocumentButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                    .addComponent(borrowDocumentButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addDocumentButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(returnDocumentButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                backgroundPanelLayout.createSequentialGroup()
+                                    .addPreferredGap(
+                                        javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(deleteDocumentButton,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 147,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addGroup(backgroundPanelLayout.createParallelGroup(
+                                        javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(addAdminButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(deleteUserButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addUserButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                                    .addComponent(deleteAdminButton,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(63, 63, 63))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
+                                backgroundPanelLayout.createSequentialGroup()
+                                    .addGap(130, 130, 130)
+                                    .addComponent(backButton,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 104,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(23, 23, 23))))))
     );
+
+    backgroundPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL,
+        new java.awt.Component[]{addAdminButton, addUserButton, deleteAdminButton,
+            deleteUserButton});
+
     backgroundPanelLayout.setVerticalGroup(
         backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(titleAdminLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titleAdminLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96,
+                    javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(backgroundPanelLayout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(findDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deleteAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(borrowDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(returnDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deleteUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(deleteDocumentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                            .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(findDocumentButton,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(borrowDocumentButton,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(deleteAdminButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(deleteUserButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(returnDocumentButton,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 45,
+                                javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(backgroundPanelLayout.createParallelGroup(
+                                javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                    36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20))
+                            .addGroup(backgroundPanelLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(deleteDocumentButton,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 44,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(31, Short.MAX_VALUE))))))
     );
+
+    backgroundPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL,
+        new java.awt.Component[]{addAdminButton, addUserButton, deleteAdminButton,
+            deleteUserButton});
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     layout.setVerticalGroup(
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
     pack();
@@ -289,13 +403,13 @@ public class MainViewAdmin extends javax.swing.JFrame {
     if (admin != null) {
       // Hiển thị thông tin người dùng lên userTextArea
       StringBuilder adminInfo = new StringBuilder();
-      adminInfo.append("Admin ID: ").append(admin.getId()).append("\n\n")
-          .append("Name: ").append(admin.getName()).append("\n\n")
-          .append("Position: ").append(admin.getPosition()).append("\n\n")
-          .append("|-------------------------------------------------------");
-      adminTextArea.setText(adminInfo.toString());
+      adminInfo
+          .append("Admin ID:    ").append(admin.getId()).append("\n\n")
+          .append("Name     :    ").append(admin.getName()).append("\n\n")
+          .append("Position  :    ").append(admin.getPosition());
+      adminTextArea.setText(adminInfo.toString().trim());
     } else {
-      adminTextArea.setText("Không tìm thấy thông tin người dùng!");
+      adminTextArea.setText("Administrator information not found!");
     }
   }
 

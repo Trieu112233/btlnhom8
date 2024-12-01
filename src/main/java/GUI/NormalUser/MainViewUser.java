@@ -51,7 +51,7 @@ public class MainViewUser extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
     titleUserLabel.setFont(new java.awt.Font("Sitka Banner", 3, 24)); // NOI18N
-    titleUserLabel.setForeground(new java.awt.Color(0, 32,63));
+    titleUserLabel.setForeground(new java.awt.Color(0, 32, 63));
     titleUserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     titleUserLabel.setText("USER TASKS");
 
@@ -60,6 +60,7 @@ public class MainViewUser extends javax.swing.JFrame {
     userTextArea.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
     userTextArea.setRows(1);
     userTextArea.setTabSize(6);
+    userTextArea.setCaretColor(Color.white);
     userTextArea.addAncestorListener(new javax.swing.event.AncestorListener() {
       public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
         userTextAreaAncestorAdded(evt);
@@ -75,6 +76,8 @@ public class MainViewUser extends javax.swing.JFrame {
 
     findDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     findDocumentButton.setText("Search Document");
+    findDocumentButton.setBackground(new Color(0, 32, 63));
+    findDocumentButton.setForeground(Color.WHITE);
     findDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         findDocumentButtonActionPerformed(evt);
@@ -83,6 +86,8 @@ public class MainViewUser extends javax.swing.JFrame {
 
     borrowDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     borrowDocumentButton.setText("Borrow Document");
+    borrowDocumentButton.setBackground(new Color(0, 32, 63));
+    borrowDocumentButton.setForeground(Color.WHITE);
     borrowDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         borrowDocumentButtonActionPerformed(evt);
@@ -91,6 +96,8 @@ public class MainViewUser extends javax.swing.JFrame {
 
     returnDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     returnDocumentButton.setText("Return Document");
+    returnDocumentButton.setBackground(new Color(0, 32, 63));
+    returnDocumentButton.setForeground(Color.WHITE);
     returnDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnDocumentButtonActionPerformed(evt);
@@ -99,7 +106,8 @@ public class MainViewUser extends javax.swing.JFrame {
 
     backButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     backButton.setText("Sign Out");
-    backButton.setBackground(Color.cyan);
+    backButton.setBackground(Color.red);
+    backButton.setForeground(Color.WHITE);
     backButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backButtonActionPerformed(evt);
@@ -111,66 +119,60 @@ public class MainViewUser extends javax.swing.JFrame {
     backgroundPanelLayout.setHorizontalGroup(
         backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titleUserLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                    javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                backgroundPanelLayout.createSequentialGroup()
-                    .addGap(63, 63, 63)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 447,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96,
+                .addGap(63, 63, 63)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 307,
+                    Short.MAX_VALUE)
+                .addGap(100, 100, 100)
+                .addGroup(backgroundPanelLayout.createParallelGroup(
+                        javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(findDocumentButton, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(borrowDocumentButton, javax.swing.GroupLayout.DEFAULT_SIZE, 157,
                         Short.MAX_VALUE)
-                    .addGroup(backgroundPanelLayout.createParallelGroup(
-                            javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(findDocumentButton,
-                            javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(borrowDocumentButton,
-                            javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(returnDocumentButton,
-                            javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 150,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(117, 117, 117))
+                    .addComponent(returnDocumentButton, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(150, 150, 150))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                 backgroundPanelLayout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
+                    .addContainerGap()
+                    .addGroup(backgroundPanelLayout.createParallelGroup(
+                            javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(titleUserLabel, javax.swing.GroupLayout.Alignment.LEADING,
+                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(backgroundPanelLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(30, 30, 30))
     );
     backgroundPanelLayout.setVerticalGroup(
         backgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(titleUserLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 96,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addGroup(backgroundPanelLayout.createParallelGroup(
                         javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(backgroundPanelLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addComponent(findDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE,
                             45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(58, 58, 58)
                         .addComponent(borrowDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE,
                             45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addGap(58, 58, 58)
                         .addComponent(returnDocumentButton, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(backgroundPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311,
-                            javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87,
-                    Short.MAX_VALUE)
-                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-                    javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                            45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34,
+                            Short.MAX_VALUE)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -200,12 +202,11 @@ public class MainViewUser extends javax.swing.JFrame {
     if (user != null) {
       // Hiển thị thông tin người dùng lên userTextArea
       StringBuilder userInfo = new StringBuilder();
-      userInfo.append("Student ID: ").append(user.getId()).append("\n\n")
-          .append("Name: ").append(user.getName()).append("\n\n")
-          .append("Class: ").append(user.getClassName()).append("\n\n")
-          .append("Course: ").append(user.getCourseName()).append("\n\n")
-          .append("Borrowed Documents: ").append(user.getNumberOfBorrowedDocument()).append("\n\n")
-          .append("|--------------------------------------------------------");
+      userInfo.append("Student ID : ").append(user.getId()).append("\n\n")
+          .append("Name        : ").append(user.getName()).append("\n\n")
+          .append("Class         : ").append(user.getClassName()).append("\n\n")
+          .append("Course      : ").append(user.getCourseName()).append("\n\n")
+          .append("Borrowed Documents: ").append(user.getNumberOfBorrowedDocument());
 
       userTextArea.setText(userInfo.toString());
     } else {
