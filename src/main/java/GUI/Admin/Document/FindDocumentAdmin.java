@@ -2,6 +2,9 @@ package GUI.Admin.Document;
 
 import QR.QRCodeGenerator;
 
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import main_class.Document;
 
 import GUI.Admin.MainViewAdmin;
@@ -340,23 +343,22 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
   private void qrButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // Tạo đường dẫn lưu QR Code
-    ShowQRAddDoc showQR = new ShowQRAddDoc();
-    showQR.setVisible(true);
-
     String filePath = "src/main/java/image/qr/qr.png";
 
     // Tạo mã QR từ thông tin tài liệu
     try {
-      bookA.getVolumeInfo().setPreviewLink(bookA.getVolumeInfo().getPreviewLink());
-      QRCodeGenerator.generateQRCode(bookA, filePath);
+      QRCodeGenerator.generateQRCode(bookA, filePath); // Tạo QR code mới
+      ShowQRAddDoc showQR = new ShowQRAddDoc();
+      showQR.setVisible(true);
 
-    } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, "Lỗi khi tạo QR Code: " + e.getMessage(), "Lỗi",
-          JOptionPane.ERROR_MESSAGE);
+      // Đọc lại file mới và gán vào JLabel
+      Image qrImage = ImageIO.read(new File(filePath));
+      showQR.QRLabel.setIcon(new ImageIcon(qrImage));
+    } catch (IOException e) {
+      JOptionPane.showMessageDialog(this, "Lỗi khi đọc hình ảnh: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }
   }
-
 
   private void updateUIWithDocument(Document document) {
     // Cập nhật thông tin sách lên các label và textArea
