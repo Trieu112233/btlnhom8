@@ -41,7 +41,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents(){
 
-    backgroundPanel = new BackgroundPanel("/image/backgroundImage.jpg");
+    backgroundPanel = new BackgroundPanel("/image/backgroundAdmin.png");
 
     titleAdminLabel = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
@@ -60,13 +60,13 @@ public class MainViewAdmin extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
     titleAdminLabel.setFont(new java.awt.Font("Sitka Banner", 3, 24)); // NOI18N
-    titleAdminLabel.setForeground(new java.awt.Color(255, 51, 51));
+    titleAdminLabel.setForeground(new java.awt.Color(13, 112, 106));
     titleAdminLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    titleAdminLabel.setText("TÁC VỤ DÀNH CHO ADMIN");
+    titleAdminLabel.setText("ADMINISTRATOR TASKS");
 
     adminTextArea.setEditable(false);
     adminTextArea.setColumns(20);
-    adminTextArea.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+    adminTextArea.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
     adminTextArea.setRows(1);
     adminTextArea.setTabSize(6);
     adminTextArea.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -81,7 +81,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     jScrollPane1.setViewportView(adminTextArea);
 
     findDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    findDocumentButton.setText("Tra Cứu Sách");
+    findDocumentButton.setText("Search Document");
     findDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         findDocumentButtonActionPerformed(evt);
@@ -89,7 +89,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     borrowDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    borrowDocumentButton.setText("Mượn sách");
+    borrowDocumentButton.setText("Borrow Document");
     borrowDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         borrowDocumentButtonActionPerformed(evt);
@@ -97,7 +97,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     returnDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    returnDocumentButton.setText("Trả sách");
+    returnDocumentButton.setText("Return Document");
     returnDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnDocumentButtonActionPerformed(evt);
@@ -105,7 +105,8 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     backButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    backButton.setText("Đăng xuất");
+    backButton.setText("Sign Out");
+    backButton.setBackground(Color.cyan);
     backButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backButtonActionPerformed(evt);
@@ -113,7 +114,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     addUserButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    addUserButton.setText("Thêm người dùng");
+    addUserButton.setText("Add User");
     addUserButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addUserButtonActionPerformed(evt);
@@ -121,7 +122,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     addAdminButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    addAdminButton.setText("Thêm admin");
+    addAdminButton.setText("Add Admin");
     addAdminButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addAdminButtonActionPerformed(evt);
@@ -129,7 +130,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     addDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    addDocumentButton.setText("Thêm sách");
+    addDocumentButton.setText("Add Document");
     addDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         addDocumentButtonActionPerformed(evt);
@@ -137,7 +138,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     deleteUserButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    deleteUserButton.setText("Xoá người dùng");
+    deleteUserButton.setText("Delete User");
     deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteUserButtonActionPerformed(evt);
@@ -145,7 +146,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     deleteAdminButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    deleteAdminButton.setText("Xoá admin");
+    deleteAdminButton.setText("Delete Admin");
     deleteAdminButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteAdminButtonActionPerformed(evt);
@@ -153,7 +154,7 @@ public class MainViewAdmin extends javax.swing.JFrame {
     });
 
     deleteDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    deleteDocumentButton.setText("Xoá sách");
+    deleteDocumentButton.setText("Delete Document");
     deleteDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteDocumentButtonActionPerformed(evt);
@@ -232,7 +233,6 @@ public class MainViewAdmin extends javax.swing.JFrame {
             .addComponent(backgroundPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
-    backButton.setBackground(Color.cyan);
     pack();
   }// </editor-fold>
 

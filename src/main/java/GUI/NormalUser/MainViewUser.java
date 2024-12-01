@@ -39,7 +39,7 @@ public class MainViewUser extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
-    backgroundPanel = new BackgroundPanel("/image/backgroundUser.jpg");
+    backgroundPanel = new BackgroundPanel("/image/backgroundUser2.jfif");
     titleUserLabel = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     userTextArea = new javax.swing.JTextArea();
@@ -51,13 +51,13 @@ public class MainViewUser extends javax.swing.JFrame {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
     titleUserLabel.setFont(new java.awt.Font("Sitka Banner", 3, 24)); // NOI18N
-    titleUserLabel.setForeground(new java.awt.Color(255, 51, 51));
+    titleUserLabel.setForeground(new java.awt.Color(0, 32,63));
     titleUserLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    titleUserLabel.setText("TÁC VỤ DÀNH CHO NGƯỜI DÙNG");
+    titleUserLabel.setText("USER TASKS");
 
     userTextArea.setEditable(false);
     userTextArea.setColumns(20);
-    userTextArea.setFont(new java.awt.Font("Segoe UI Historic", 0, 18)); // NOI18N
+    userTextArea.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
     userTextArea.setRows(1);
     userTextArea.setTabSize(6);
     userTextArea.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -74,7 +74,7 @@ public class MainViewUser extends javax.swing.JFrame {
     jScrollPane1.setViewportView(userTextArea);
 
     findDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    findDocumentButton.setText("Tra Cứu Sách");
+    findDocumentButton.setText("Search Document");
     findDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         findDocumentButtonActionPerformed(evt);
@@ -82,7 +82,7 @@ public class MainViewUser extends javax.swing.JFrame {
     });
 
     borrowDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    borrowDocumentButton.setText("Mượn sách");
+    borrowDocumentButton.setText("Borrow Document");
     borrowDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         borrowDocumentButtonActionPerformed(evt);
@@ -90,7 +90,7 @@ public class MainViewUser extends javax.swing.JFrame {
     });
 
     returnDocumentButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    returnDocumentButton.setText("Trả sách");
+    returnDocumentButton.setText("Return Document");
     returnDocumentButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnDocumentButtonActionPerformed(evt);
@@ -98,7 +98,8 @@ public class MainViewUser extends javax.swing.JFrame {
     });
 
     backButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    backButton.setText("Đăng xuất");
+    backButton.setText("Sign Out");
+    backButton.setBackground(Color.cyan);
     backButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         backButtonActionPerformed(evt);
@@ -125,15 +126,15 @@ public class MainViewUser extends javax.swing.JFrame {
                             javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(findDocumentButton,
                             javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 123,
+                            javax.swing.GroupLayout.PREFERRED_SIZE, 150,
                             javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(borrowDocumentButton,
                             javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 123,
+                            javax.swing.GroupLayout.PREFERRED_SIZE, 150,
                             javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(returnDocumentButton,
                             javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 123,
+                            javax.swing.GroupLayout.PREFERRED_SIZE, 150,
                             javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(117, 117, 117))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
@@ -208,7 +209,7 @@ public class MainViewUser extends javax.swing.JFrame {
 
       userTextArea.setText(userInfo.toString());
     } else {
-      userTextArea.setText("Không tìm thấy thông tin người dùng!");
+      userTextArea.setText("User information not found!");
     }
   }
 
