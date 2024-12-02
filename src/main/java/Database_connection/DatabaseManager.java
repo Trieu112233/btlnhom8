@@ -462,7 +462,7 @@ public class DatabaseManager {
     return false; // Nếu xảy ra lỗi, giả định ID không tồn tại
   }
 
-  public boolean deleteUserById(String id) throws SQLException {
+  public boolean checkDeletedUserById(String id) throws SQLException {
     String sql = "DELETE FROM normal_user WHERE student_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
       stmt.setString(1, id);

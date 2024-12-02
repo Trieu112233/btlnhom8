@@ -3,10 +3,7 @@ package API;
 public class ImageLinks {
 
   private String thumbnail;
-  private String small;
-  private String medium;
   private String large;
-  private String extraLarge;
 
   public String getThumbnail() {
     return thumbnail;

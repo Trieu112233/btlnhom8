@@ -281,7 +281,7 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
       }
 
       // Xóa người dùng
-      boolean isDeleted = dbManager.deleteUserById(idUser);
+      boolean isDeleted = dbManager.checkDeletedUserById(idUser);
       if (isDeleted) {
         JOptionPane.showMessageDialog(this,
             "Người dùng với ID: " + idUser + " đã được xóa thành công!", "Thành công",

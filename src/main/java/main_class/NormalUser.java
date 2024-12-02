@@ -97,14 +97,6 @@ public class NormalUser extends User {
     setNumberOfBorrowedDocument(this.numberOfBorrowedDocument - 1);
   }
 
-  public ArrayList<String> getAllDocumentsTitle() {
-    ArrayList<String> title = new ArrayList<>();
-    for (Document doc : this.borrowedDocument) {
-      title.add(doc.getTitle());
-    }
-    return title;
-  }
-
   /**
    * in het ra.
    */
