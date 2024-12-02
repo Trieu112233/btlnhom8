@@ -283,6 +283,21 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
         return;
       }
 
+      if(copiesToDelete == document.getCopiesAvailable() && !dbManager.checkDocumentBeingBorrowed(document.getTitle())){
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Bạn có chắc chắn muốn xóa sách này khỏi cơ sở dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+        if (confirm != JOptionPane.YES_OPTION) {
+          return;
+        }
+        dbManager.removeDocument(document.getTitle());
+        JOptionPane.showMessageDialog(this, "Xoá thành công khỏi cơ sở dữ liệu!", "Hoàn thành",
+            JOptionPane.INFORMATION_MESSAGE);
+        nameAuthorLabel.setText("");
+        copiesAvailableLabel.setText("");
+        return;
+      }
+
       // Nếu chỉ giảm số lượng bản sao
       int remainingCopies = document.getCopiesAvailable() - copiesToDelete;
       int confirm = JOptionPane.showConfirmDialog(this,

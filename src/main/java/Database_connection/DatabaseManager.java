@@ -137,6 +137,20 @@ public class DatabaseManager {
     return documents;
   }
 
+  /** check xem co ai dang muon document khong. */
+  public boolean checkDocumentBeingBorrowed(String title) {
+    String sql = "SELECT * FROM borrow_management WHERE book_name = ?";
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+      stmt.setString(1, title);
+      ResultSet rs = stmt.executeQuery();
+      return rs.next(); // Returns true if a row exists, false otherwise
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false; // Return false if an exception occurs
+  }
+
+
   /**
    * them admmin.
    */
@@ -482,30 +496,6 @@ public class DatabaseManager {
       e.printStackTrace();
     }
     return false; // Nếu có lỗi, giả định tài liệu không tồn tại
-  }
-
-  public Document getDocumentByTitle(String title) {
-    try {
-      // Logic lấy thông tin sách từ CSDL bằng tiêu đề
-      String query = "SELECT * FROM document WHERE title = ?";
-      PreparedStatement statement = connection.prepareStatement(query);
-      statement.setString(1, title);
-      ResultSet resultSet = statement.executeQuery();
-
-      if (resultSet.next()) {
-        Document document = new Document();
-        document.setTitle(resultSet.getString("title"));
-        document.setAuthor(resultSet.getString("author"));
-        document.setDescription(resultSet.getString("description"));
-        document.setImage(resultSet.getString("image"));
-        document.setCopiesAvailable(resultSet.getInt("copies_available"));
-        document.setPreviewLink(resultSet.getString("previewLink"));
-        return document;
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null; // Không tìm thấy
   }
 
 }
