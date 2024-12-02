@@ -137,7 +137,9 @@ public class DatabaseManager {
     return documents;
   }
 
-  /** check xem co ai dang muon document khong. */
+  /**
+   * check xem co ai dang muon document khong.
+   */
   public boolean checkDocumentBeingBorrowed(String title) {
     String sql = "SELECT * FROM borrow_management WHERE book_name = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -149,7 +151,6 @@ public class DatabaseManager {
     }
     return false; // Return false if an exception occurs
   }
-
 
   /**
    * them admmin.
@@ -461,20 +462,6 @@ public class DatabaseManager {
     return false; // Nếu xảy ra lỗi, giả định ID không tồn tại
   }
 
-  public String getPositionById(String id) {
-    String sql = "SELECT position FROM admin WHERE admin_id = ?";
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, id);
-      ResultSet rs = stmt.executeQuery();
-      if (rs.next()) {
-        return rs.getString("position"); // Lấy giá trị cột "position"
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null; // Trả về null nếu không tìm thấy
-  }
-
   public boolean deleteUserById(String id) throws SQLException {
     String sql = "DELETE FROM normal_user WHERE student_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -482,20 +469,6 @@ public class DatabaseManager {
       int rowsAffected = stmt.executeUpdate();
       return rowsAffected > 0;
     }
-  }
-
-  public boolean isDocumentExists(String title) {
-    String sql = "SELECT COUNT(*) FROM document WHERE title = ?";
-    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-      stmt.setString(1, title);
-      ResultSet rs = stmt.executeQuery();
-      if (rs.next()) {
-        return rs.getInt(1) > 0; // Nếu COUNT > 0, tài liệu tồn tại
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return false; // Nếu có lỗi, giả định tài liệu không tồn tại
   }
 
 }
