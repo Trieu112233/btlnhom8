@@ -88,7 +88,6 @@ public class DatabaseManager {
     }
   }
 
-
   /**
    * tim sach.
    */
@@ -390,12 +389,15 @@ public class DatabaseManager {
 
     String sql1 = "UPDATE normal_user SET number_of_borrowed_document = ? where student_id = ?";
     try (PreparedStatement stmt = connection.prepareStatement(sql1)) {
-      stmt.setInt(1, findNormalUser(studentId).getNumberOfBorrowedDocument());
+      int currentBorrowedCount = findNormalUser(studentId).getNumberOfBorrowedDocument();
+
+      stmt.setInt(1, currentBorrowedCount - 1);
       stmt.setString(2, studentId);
       stmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
   }
 
   /**
@@ -441,11 +443,11 @@ public class DatabaseManager {
       stmt.setString(1, userId);
       stmt.setString(2, password);
       ResultSet rs = stmt.executeQuery();
-      return rs.next(); // Nếu có kết quả, admin hợp lệ
+      return rs.next();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    return false; // Nếu không có kết quả, admin không hợp lệ
+    return false;
   }
 
   public boolean isAdminIdExists(String id) {
