@@ -33,7 +33,6 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
   }
 
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -55,10 +54,10 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
     titleLabel.setFont(new java.awt.Font("Segoe UI Light", 3, 24)); // NOI18N
     titleLabel.setForeground(new java.awt.Color(255, 0, 51));
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    titleLabel.setText("Xoá Người Dùng");
+    titleLabel.setText("Delete User");
 
     idUserLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    idUserLabel.setText("ID người dùng");
+    idUserLabel.setText("ID");
 
     idUserTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     idUserTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +81,7 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
     courseLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
     deleteButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    deleteButton.setText("Xoá");
+    deleteButton.setText("Delete");
     deleteButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteButtonActionPerformed(evt);
@@ -214,7 +213,7 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
     String idUser = idUserTextField.getText().trim();
 
     if (idUser.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập ID người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please inter ID!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -225,18 +224,18 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
       NormalUser user = dbManager.findNormalUser(idUser); // Hàm này trả về thông tin người dùng
 
       if (user != null) {
-        nameUserLabel.setText("Tên: " + user.getName());
-        classLabel.setText("Lớp: " + user.getClassName());
-        courseLabel.setText("Khoá: " + user.getCourseName());
+        nameUserLabel.setText("Name: " + user.getName());
+        classLabel.setText("Class: " + user.getClassName());
+        courseLabel.setText("Course: " + user.getCourseName());
         numberOfBorrowedDocumentLabel.setText(
-            "Số tài liệu đã mượn: " + user.getNumberOfBorrowedDocument());
+            "Number of borrowed document: " + user.getNumberOfBorrowedDocument());
       } else {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng với ID: " + idUser,
-            "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Cannot find user with ID: " + idUser,
+            "Notification", JOptionPane.INFORMATION_MESSAGE);
       }
     } catch (Exception e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi kiểm tra người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error checking user!", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -250,7 +249,7 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
     String idUser = idUserTextField.getText().trim();
 
     if (idUser.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập ID người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter ID!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -260,21 +259,21 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
       NormalUser user = dbManager.findNormalUser(idUser); // Lấy thông tin người dùng
 
       if (user == null) {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng với ID: " + idUser, "Lỗi",
+        JOptionPane.showMessageDialog(this, "Cannot find user with ID: " + idUser, "Error",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
 
       // Kiểm tra xem người dùng có tài liệu mượn chưa trả không
       if (user.getNumberOfBorrowedDocument() > 0) {
-        JOptionPane.showMessageDialog(this, "Người dùng này còn tài liệu mượn. Không thể xóa!",
-            "Lỗi", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "User is borrowing some document. Cannot delete!",
+            "Notification", JOptionPane.ERROR_MESSAGE);
         return;
       }
 
       // Xác nhận xóa người dùng
       int confirm = JOptionPane.showConfirmDialog(this,
-          "Bạn có chắc chắn muốn xóa người dùng này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,
+          "Are you sure want to delete this user?", "Notification", JOptionPane.YES_NO_OPTION,
           JOptionPane.WARNING_MESSAGE);
       if (confirm != JOptionPane.YES_OPTION) {
         return;
@@ -284,7 +283,7 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
       boolean isDeleted = dbManager.checkDeletedUserById(idUser);
       if (isDeleted) {
         JOptionPane.showMessageDialog(this,
-            "Người dùng với ID: " + idUser + " đã được xóa thành công!", "Thành công",
+            "User with ID: " + idUser + " deleted successfully!", "Notification",
             JOptionPane.INFORMATION_MESSAGE);
 
         // Xóa thông tin người dùng trên giao diện
@@ -294,12 +293,12 @@ public class DeleteUserAdmin extends javax.swing.JFrame {
         courseLabel.setText("");
         numberOfBorrowedDocumentLabel.setText("");
       } else {
-        JOptionPane.showMessageDialog(this, "Không thể xóa người dùng. Hãy kiểm tra lại!", "Lỗi",
+        JOptionPane.showMessageDialog(this, "Cannot delete user!. Please check again!", "Error",
             JOptionPane.ERROR_MESSAGE);
       }
     } catch (SQLException e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi xóa người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error deleting user!", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }

@@ -44,13 +44,11 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
   Document document;
   private String idAdmin;
-  private Book bookA;
 
   public FindDocumentAdmin(String idAdmin) {
     initComponents();
     this.idAdmin = idAdmin;
     document = new Document();
-    bookA = new Book();
     jPanel1.setBackground(Color.WHITE);
     setLocationRelativeTo(null);
   }
@@ -100,11 +98,11 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
     findDocumentLabel.setFont(new java.awt.Font("Serif", 3, 24));
     findDocumentLabel.setForeground(new java.awt.Color(255, 0, 0));
     findDocumentLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    findDocumentLabel.setText("Tra Cứu Sách");
+    findDocumentLabel.setText("Search Document");
 
     bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    bookTitleLabel.setText("Tên sách");
+    bookTitleLabel.setText("Title");
 
     authorLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18));
     authorLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -121,7 +119,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
     enterBookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     enterBookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    enterBookTitleLabel.setText("Nhập tên sách");
+    enterBookTitleLabel.setText("Enter Title");
 
     numberOfCopiesAvailableLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18));
     numberOfCopiesAvailableLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -145,11 +143,11 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
     numberOfCopiesAvailableLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
     numberOfCopiesAvailableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    numberOfCopiesAvailableLabel.setText("Số bản hiện có");
+    numberOfCopiesAvailableLabel.setText("Copies Available");
 
     authorLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
     authorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    authorLabel.setText("Tác giả");
+    authorLabel.setText("Author");
 
     bookTitleLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18));
     bookTitleLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -174,7 +172,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
 
     describleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     describleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    describleLabel.setText("Mô tả");
+    describleLabel.setText("Description");
 
     jTextArea1.setEditable(false);
     jTextArea1.setColumns(20);
@@ -373,14 +371,13 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
       Image qrImage = ImageIO.read(new File(filePath));
       showQR.QRLabel.setIcon(new ImageIcon(qrImage));
     } catch (IOException e) {
-      JOptionPane.showMessageDialog(this, "Lỗi khi đọc hình ảnh: " + e.getMessage(), "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error Reading Image: " + e.getMessage(), "Error",
           JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }
   }
 
   private void updateUIWithDocument(Document document) {
-    // Cập nhật thông tin sách lên các label và textArea
     bookTitleLabel2.setText(document.getTitle());
     authorLabel2.setText(document.getAuthor());
     numberOfCopiesAvailableLabel2.setText("" + document.getCopiesAvailable());
@@ -516,11 +513,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
   }
 
   public static void main(String args[]) {
-    /* Set the Nimbus look and feel */
-    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-     */
+
     try {
       for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
         if ("Nimbus".equals(info.getName())) {
@@ -541,9 +534,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
       java.util.logging.Logger.getLogger(FindDocumentAdmin.class.getName())
           .log(java.util.logging.Level.SEVERE, null, ex);
     }
-    //</editor-fold>
 
-    /* Create and display the form */
     java.awt.EventQueue.invokeLater(new Runnable() {
       public void run() {
         new FindDocumentAdmin("22022132").setVisible(true);

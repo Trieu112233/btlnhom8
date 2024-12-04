@@ -33,7 +33,6 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
   }
 
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -54,10 +53,10 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     titleLabel.setFont(new java.awt.Font("Segoe UI Light", 3, 24)); // NOI18N
     titleLabel.setForeground(new java.awt.Color(255, 0, 0));
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    titleLabel.setText("Xoá Sách");
+    titleLabel.setText("Delete Document");
 
     nameDocumentLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    nameDocumentLabel.setText("Tên Sách");
+    nameDocumentLabel.setText("Title");
 
     nameDocumentTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     nameDocumentTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +94,7 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     });
 
     deleteCopiesLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    deleteCopiesLabel.setText("Số bản muốn xoá");
+    deleteCopiesLabel.setText("Quantity");
 
     deleteCopiesTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     deleteCopiesTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -210,26 +209,22 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     );
 
     pack();
-  }// </editor-fold>
+  }
 
   private void nameDocumentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     checkButtonActionPerformed(null);
   }
 
   private void deleteCopiesTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
     checkButtonActionPerformed(null);
     submitButtonActionPerformed(null);
   }
 
   private void checkButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    // TODO add your handling code here:
     String nameDocument = nameDocumentTextField.getText().trim();
 
     if (nameDocument.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sách!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter Document Name!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -241,15 +236,15 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
           nameDocument); // Hàm này trả về thông tin người dùng
 
       if (nameDocument != null) {
-        nameAuthorLabel.setText("Tên tác giả: " + document.getAuthor());
-        copiesAvailableLabel.setText("Số bản còn lại: " + document.getCopiesAvailable());
+        nameAuthorLabel.setText("Author: " + document.getAuthor());
+        copiesAvailableLabel.setText("Copies Available: " + document.getCopiesAvailable());
       } else {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy sách với tên: " + idAdmin, "Thông báo",
+        JOptionPane.showMessageDialog(this, "Cannot find document: " + nameDocument, "Notification",
             JOptionPane.INFORMATION_MESSAGE);
       }
     } catch (Exception e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi kiểm tra sách !", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error Checking Document !", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -259,7 +254,7 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     String cop = deleteCopiesTextField.getText().trim();
 
     if (nameDocument.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sách!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter document name!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -269,7 +264,7 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
       Document document = dbManager.findDocument(nameDocument);
 
       if (document == null) {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy sách với tên: " + nameDocument, "Lỗi",
+        JOptionPane.showMessageDialog(this, "Cannot find document: " + nameDocument, "Error",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -278,7 +273,7 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
 
       // Kiểm tra nếu số lượng bản sao muốn xóa lớn hơn số bản sao hiện có
       if (copiesToDelete > document.getCopiesAvailable() || copiesToDelete < 0) {
-        JOptionPane.showMessageDialog(this, "Số lượng bản sao xóa không hợp lệ!", "Lỗi",
+        JOptionPane.showMessageDialog(this, "invalid Number of Copies!", "Error",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -286,14 +281,14 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
       if (copiesToDelete == document.getCopiesAvailable() && !dbManager.checkDocumentBeingBorrowed(
           document.getTitle())) {
         int confirm = JOptionPane.showConfirmDialog(this,
-            "Bạn có chắc chắn muốn xóa sách này khỏi cơ sở dữ liệu không?", "Xác nhận",
+            "Are you sure you want to delete this book from the database?", "Notification",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.WARNING_MESSAGE);
         if (confirm != JOptionPane.YES_OPTION) {
           return;
         }
         dbManager.removeDocument(document.getTitle());
-        JOptionPane.showMessageDialog(this, "Xoá thành công khỏi cơ sở dữ liệu!", "Hoàn thành",
+        JOptionPane.showMessageDialog(this, "Deleted successfully from database!", "Notification",
             JOptionPane.INFORMATION_MESSAGE);
         nameAuthorLabel.setText("");
         copiesAvailableLabel.setText("");
@@ -303,7 +298,8 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
       // Nếu chỉ giảm số lượng bản sao
       int remainingCopies = document.getCopiesAvailable() - copiesToDelete;
       int confirm = JOptionPane.showConfirmDialog(this,
-          "Bạn có chắc chắn muốn xóa sách này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,
+          "Are you sure you want to delete this document?", "Notification",
+          JOptionPane.YES_NO_OPTION,
           JOptionPane.WARNING_MESSAGE);
       if (confirm != JOptionPane.YES_OPTION) {
         return;
@@ -311,21 +307,20 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
 
       // Cập nhật số lượng bản sao trong cơ sở dữ liệu
       dbManager.updateDocument(nameDocument, remainingCopies);
-      JOptionPane.showMessageDialog(this, "Xoá thành công!", "Hoàn thành",
+      JOptionPane.showMessageDialog(this, "Copies Available Updated Successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
       nameAuthorLabel.setText("");
       copiesAvailableLabel.setText("");
     } catch (Exception e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi xóa người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error Deleting Document!", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }
 
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
-    // TODO add your handling code here:
-    dispose(); // Tắt cửa s�� hiện tại
-    new MainViewAdmin(idAdmin).setVisible(true); // Hiển thị cửa s�� Menu quản trị
+    dispose();
+    new MainViewAdmin(idAdmin).setVisible(true);
   }
 
   public static void main(String args[]) {

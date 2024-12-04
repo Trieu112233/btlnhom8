@@ -111,7 +111,7 @@ public class Login extends javax.swing.JFrame {
 
     adminLoginLabel.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
     adminLoginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    adminLoginLabel.setText("Admin Login");
+    adminLoginLabel.setText("Administrator Login");
 
     javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
     jPanel4.setLayout(jPanel4Layout);

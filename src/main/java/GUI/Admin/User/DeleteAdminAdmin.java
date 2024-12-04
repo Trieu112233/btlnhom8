@@ -50,10 +50,10 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
     adminLabel.setFont(new java.awt.Font("Segoe UI Light", 3, 24)); // NOI18N
     adminLabel.setForeground(new java.awt.Color(255, 0, 51));
     adminLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    adminLabel.setText("Xoá Admin");
+    adminLabel.setText("Delete Administrator");
 
     idAdminLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    idAdminLabel.setText("ID admin");
+    idAdminLabel.setText("ID");
 
     idAdminTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     idAdminTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +75,7 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
     nameAdminLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
     deleteButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    deleteButton.setText("Xoá");
+    deleteButton.setText("Delete");
     deleteButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         deleteButtonActionPerformed(evt);
@@ -183,7 +183,7 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
     String idAdmin = idAdminTextField.getText().trim();
 
     if (idAdmin.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập ID người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter ID!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -194,15 +194,15 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
       Admin admin = dbManager.findAdmin(idAdmin); // Hàm này trả về thông tin người dùng
 
       if (admin != null) {
-        nameAdminLabel.setText("Tên: " + admin.getName());
-        positionLabel.setText("Chức vụ: " + admin.getPosition());
+        nameAdminLabel.setText("Name: " + admin.getName());
+        positionLabel.setText("Position: " + admin.getPosition());
       } else {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy người dùng với ID: " + idAdmin,
-            "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Cannot find administrator with ID: " + idAdmin,
+            "Notification", JOptionPane.INFORMATION_MESSAGE);
       }
     } catch (Exception e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi kiểm tra người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error checking Administrator!", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -211,7 +211,7 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
     String idAdminTemp = idAdminTextField.getText().trim();
 
     if (idAdminTemp.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập ID người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter administrator ID", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -221,21 +221,22 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
       Admin admin = dbManager.findAdmin(idAdminTemp); // Lấy thông tin người dùng
 
       if (admin == null) {
-        JOptionPane.showMessageDialog(this, "Không tìm thấy admin với ID: " + idAdminTemp, "Lỗi",
+        JOptionPane.showMessageDialog(this, "Cannot find administrator with ID: " + idAdminTemp,
+            "Error",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
 
-      // Kiểm tra xem người dùng có tài liệu mượn chưa trả không
       if (!dbManager.checkPosition(idAdmin)) {
-        JOptionPane.showMessageDialog(this, "Bạn không có quyền xoá admin này!", "Lỗi",
+        JOptionPane.showMessageDialog(this, "Insufficient Authority!", "Lỗi",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
 
       // Xác nhận xóa người dùng
       int confirm = JOptionPane.showConfirmDialog(this,
-          "Bạn có chắc chắn muốn xóa admin này không?", "Xác nhận", JOptionPane.YES_NO_OPTION,
+          "Are you sure want to delete this administrator?", "Notification",
+          JOptionPane.YES_NO_OPTION,
           JOptionPane.WARNING_MESSAGE);
       if (confirm != JOptionPane.YES_OPTION) {
         return;
@@ -243,14 +244,14 @@ public class DeleteAdminAdmin extends javax.swing.JFrame {
 
       // Thực hiện xóa admin
       dbManager.removeAdmin(idAdminTemp);
-      JOptionPane.showMessageDialog(this, "Admin đã được xóa thành công!", "Thành công",
+      JOptionPane.showMessageDialog(this, "Administrator Deleted Successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
       idAdminTextField.setText("");
       nameAdminLabel.setText("");
       positionLabel.setText("");
     } catch (Exception e) {
       e.printStackTrace();
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi xóa người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error deleting administrator!", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
   }

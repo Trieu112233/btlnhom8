@@ -107,11 +107,11 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     findDocumentLabel.setFont(new java.awt.Font("Serif", 3, 24));
     findDocumentLabel.setForeground(new java.awt.Color(255, 0, 0));
     findDocumentLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    findDocumentLabel.setText("Thêm Sách");
+    findDocumentLabel.setText("Add Document");
 
     bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     bookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    bookTitleLabel.setText("Tên sách");
+    bookTitleLabel.setText("Title");
 
     authorLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18));
     authorLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -128,7 +128,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
     enterBookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     enterBookTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    enterBookTitleLabel.setText("Nhâp tên sách");
+    enterBookTitleLabel.setText("Enter Title");
 
     numberOfCopiesAvailableLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18));
     numberOfCopiesAvailableLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -152,11 +152,11 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
     numberOfCopiesAvailableLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     numberOfCopiesAvailableLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    numberOfCopiesAvailableLabel.setText("Số bản hiện có");
+    numberOfCopiesAvailableLabel.setText("Copies Available");
 
     authorLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     authorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    authorLabel.setText("Tác giả");
+    authorLabel.setText("Author");
 
     bookTitleLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18));
     bookTitleLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -181,7 +181,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
     describleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
     describleLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    describleLabel.setText("Mô tả");
+    describleLabel.setText("Description");
 
     jTextArea1.setEditable(false);
     jTextArea1.setColumns(20);
@@ -198,7 +198,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
     addDocLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
     addDocLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-    addDocLabel.setText("Số bản thêm vào");
+    addDocLabel.setText("Quantity");
 
     addBookTextField.setFont(new java.awt.Font("Segoe UI", 0, 18));
     addBookTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -428,7 +428,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
       Image qrImage = ImageIO.read(new File(filePath));
       showQR.QRLabel.setIcon(new ImageIcon(qrImage));
     } catch (IOException e) {
-      JOptionPane.showMessageDialog(this, "Lỗi khi đọc hình ảnh: " + e.getMessage(), "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error reading image: " + e.getMessage(), "Error",
           JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }
@@ -438,12 +438,12 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     String noc = addBookTextField.getText().trim();
 
     if (document == null) {
-      JOptionPane.showMessageDialog(this, "Vui lòng chọn một sách từ danh sách!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Please choose one document!", "Notification",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
     if (noc.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng bản sao!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Please enter number of copies!", "Notification",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -451,7 +451,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     try {
       int numberOfCopies = Integer.parseInt(noc);
       if (numberOfCopies <= 0) {
-        JOptionPane.showMessageDialog(this, "Số bản phải lớn hơn 0!", "Thông báo",
+        JOptionPane.showMessageDialog(this, "Enter value must be greater than 0!", "Notification",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -464,25 +464,25 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
         // Tài liệu đã tồn tại, cộng thêm số bản
         int updatedCopies = existingDocument.getCopiesAvailable() + numberOfCopies;
         dbManager.updateDocument(document.getTitle(), updatedCopies);
-        JOptionPane.showMessageDialog(this, "Thêm sách thành công", "Thành công",
+        JOptionPane.showMessageDialog(this, "Document Added Successfully", "Success",
             JOptionPane.INFORMATION_MESSAGE);
         new MainViewAdmin(idAdmin).setVisible(true);
         this.dispose();
       } else {
         // Tài liệu chưa tồn tại, thêm mới
         dbManager.addDocument(document);
-        JOptionPane.showMessageDialog(this, "Thêm tài liệu mới thành công!", "Thông báo",
+        JOptionPane.showMessageDialog(this, "Document Added Successfully", "Success",
             JOptionPane.INFORMATION_MESSAGE);
         new AddDocumentAdmin(idAdmin).setVisible(true);
         this.dispose();
       }
 
     } catch (NumberFormatException e) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập số hợp lệ cho số bản!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Please enter valid number!", "Notification",
           JOptionPane.ERROR_MESSAGE);
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, "Lỗi khi thêm hoặc cập nhật tài liệu: " + e.getMessage(),
-          "Thông báo", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Error Adding or Updating Document: " + e.getMessage(),
+          "Notification", JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }
   }

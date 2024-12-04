@@ -3,7 +3,7 @@ package GUI.Admin.Document;
 public class ShowQRAddDoc extends javax.swing.JFrame {
 
   private javax.swing.JButton BackButtonQR;
-  javax.swing.JLabel QRLabel;
+  public javax.swing.JLabel QRLabel;
 
   public ShowQRAddDoc() {
     initComponents();

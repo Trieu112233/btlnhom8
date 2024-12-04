@@ -52,10 +52,10 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
     jLabel1.setForeground(new java.awt.Color(255, 0, 0));
     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    jLabel1.setText("Mượn Sách");
+    jLabel1.setText("Borrow Document");
 
     bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    bookTitleLabel.setText("Tên sách");
+    bookTitleLabel.setText("Title");
 
     bookTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     bookTitleTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +106,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     });
 
     borrowButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    borrowButton.setText("Mượn");
+    borrowButton.setText("Borrow");
     borrowButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         borrowButtonActionPerformed(evt);
@@ -210,7 +210,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
   private void bookTitleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     // Kiểm tra nếu ô nhập liệu bị rỗng
     if (bookTitleTextField.getText().isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập tiêu đề hoặc mã tài liệu", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter document title", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -219,11 +219,11 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
 
     // Hiển thị thông tin tài liệu hoặc thông báo lỗi
     if (document != null) {
-      authorLabel2.setText("Tên tác giả: " + document.getAuthor());
-      numberOfCopiesAvailableLabel2.setText("Số bản còn lại: " + document.getCopiesAvailable());
+      authorLabel2.setText("Author: " + document.getAuthor());
+      numberOfCopiesAvailableLabel2.setText("Copies available: " + document.getCopiesAvailable());
     } else {
-      JOptionPane.showMessageDialog(this, "Không tìm thấy tài liệu với tiêu đề hoặc mã đã nhập.",
-          "Lỗi", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Cannot find document.",
+          "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -246,7 +246,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
 
     // Kiểm tra nếu người dùng không nhập gì
     if (bookTitle.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập tiêu đề tài liệu!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter document title!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -256,14 +256,14 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
 
     // Kiểm tra nếu tài liệu không tồn tại
     if (document == null) {
-      JOptionPane.showMessageDialog(this, "Không tìm thấy tài liệu cần mượn!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Cannot find document!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
 
     // Kiểm tra nếu số lượng bản sao khả dụng là 0
     if (document.getCopiesAvailable() <= 0) {
-      JOptionPane.showMessageDialog(this, "Tài liệu đã hết bản sao sẵn có!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Document is out of available copies!", "Notification",
           JOptionPane.WARNING_MESSAGE);
       return;
     }
@@ -271,14 +271,14 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     // Tìm thông tin người dùng
     NormalUser user = dbManager.findNormalUser(idUser);
     if (user == null) {
-      JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin người dùng!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Cannot find user!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
 
     // Kiểm tra nếu người dùng đã mượn tài liệu này
     if (user.checkBorrowedDocument(document.getTitle())) {
-      JOptionPane.showMessageDialog(this, "Bạn đã mượn tài liệu này rồi!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "You are borrowing this document!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
       return;
     }
@@ -295,10 +295,10 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
       dbManager.updateDocument(bookTitle, newCopiesAvailable);
       dbManager.addBorrowedDocument(idUser, bookTitle);
 
-      JOptionPane.showMessageDialog(this, "Mượn tài liệu thành công!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Borrow successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi cập nhật cơ sở dữ liệu!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Error updating database!", "Error",
           JOptionPane.ERROR_MESSAGE);
       e.printStackTrace(); // In lỗi ra console để debug
     }

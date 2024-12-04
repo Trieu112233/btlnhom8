@@ -53,10 +53,10 @@ public class UpdateReturnedDocumentUser extends javax.swing.JFrame {
     returnLabel.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
     returnLabel.setForeground(new java.awt.Color(255, 0, 0));
     returnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    returnLabel.setText("Trả Sách");
+    returnLabel.setText("Return Document");
 
     bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    bookTitleLabel.setText("Tên sách");
+    bookTitleLabel.setText("Title");
 
     bookTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     bookTitleTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +75,7 @@ public class UpdateReturnedDocumentUser extends javax.swing.JFrame {
     });
 
     returnButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    returnButton.setText("Trả");
+    returnButton.setText("Return");
     returnButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnButtonActionPerformed(evt);
@@ -176,30 +176,29 @@ public class UpdateReturnedDocumentUser extends javax.swing.JFrame {
 
       // Kiểm tra nếu danh sách rỗng
       if (borrowedDocuments.isEmpty()) {
-        borrowedDocumentTextArea.setText("Bạn chưa mượn tài liệu nào.");
+        borrowedDocumentTextArea.setText("You have not borrowed any document yet.");
         return;
       }
 
       // Tạo chuỗi để hiển thị
       StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append("Tài liệu đã mượn:\n\n");
+      stringBuilder.append("Borrowed document:\n\n");
       int count = 1;
       for (Document document : borrowedDocuments) {
-        stringBuilder.append("Tài liệu ").append(count++).append(":\n")
-            .append("- Tiêu đề: ").append(document.getTitle()).append("\n")
-            .append("- Tác giả: ").append(document.getAuthor()).append("\n\n");
+        stringBuilder.append("Document ").append(count++).append(":\n")
+            .append("- Title: ").append(document.getTitle()).append("\n")
+            .append("- Author: ").append(document.getAuthor()).append("\n\n");
       }
 
       // Hiển thị danh sách tài liệu
       borrowedDocumentTextArea.setText(stringBuilder.toString());
     } catch (Exception e) {
       // Xử lý lỗi và thông báo
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi lấy danh sách tài liệu đã mượn!",
-          "Lỗi", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Error listing borrowed document!",
+          "Error", JOptionPane.ERROR_MESSAGE);
       e.printStackTrace(); // Debug
     }
   }
-
 
   private void bookTitleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     returnButtonActionPerformed(null);
@@ -213,7 +212,7 @@ public class UpdateReturnedDocumentUser extends javax.swing.JFrame {
   private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // Kiểm tra nếu ô nhập liệu bị rỗng
     if (bookTitleTextField.getText().isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập tiêu đề hoặc mã tài liệu", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Pleasr enter document title", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -226,7 +225,7 @@ public class UpdateReturnedDocumentUser extends javax.swing.JFrame {
 
     // Kiểm tra nếu tài liệu không tồn tại hoặc không phải là tài liệu người dùng đã mượn
     if (document == null || !normalUser.checkBorrowedDocument(bookTitleTextField.getText())) {
-      JOptionPane.showMessageDialog(this, "Tài liệu không phải của bạn hoặc chưa mượn!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "You have not borrowed this document!", "Notification",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -239,7 +238,7 @@ public class UpdateReturnedDocumentUser extends javax.swing.JFrame {
     dbManager.updateDocument(bookTitleTextField.getText(), document.getCopiesAvailable());
 
     // Thông báo trả sách thành công
-    JOptionPane.showMessageDialog(this, "Trả tài liệu thành công!", "Thông báo",
+    JOptionPane.showMessageDialog(this, "Return successfully!", "Notification",
         JOptionPane.INFORMATION_MESSAGE);
     borrowedDocumentTextAreaAncestorAdded(null);
 

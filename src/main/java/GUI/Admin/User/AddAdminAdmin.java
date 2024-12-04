@@ -33,7 +33,6 @@ public class AddAdminAdmin extends javax.swing.JFrame {
   }
 
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -56,7 +55,7 @@ public class AddAdminAdmin extends javax.swing.JFrame {
     titleLabel.setFont(new java.awt.Font("Segoe UI Light", 3, 24)); // NOI18N
     titleLabel.setForeground(new java.awt.Color(255, 0, 0));
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    titleLabel.setText("Tạo Tài Khoản Mới Cho Admin");
+    titleLabel.setText("Add New Administrator");
 
     idLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     idLabel.setText("ID");
@@ -69,7 +68,7 @@ public class AddAdminAdmin extends javax.swing.JFrame {
     });
 
     nameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    nameLabel.setText("Tên");
+    nameLabel.setText("Name");
 
     nameTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     nameTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +78,7 @@ public class AddAdminAdmin extends javax.swing.JFrame {
     });
 
     positionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    positionLabel.setText("Vị trí");
+    positionLabel.setText("Position");
 
     positionTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     positionTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +88,7 @@ public class AddAdminAdmin extends javax.swing.JFrame {
     });
 
     passwordLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    passwordLabel.setText("Mật khẩu");
+    passwordLabel.setText("Password");
 
     passwordTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     passwordTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +231,7 @@ public class AddAdminAdmin extends javax.swing.JFrame {
     );
 
     pack();
-  }// </editor-fold>
+  }
 
   private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     submitButtonActionPerformed(null);
@@ -254,7 +253,7 @@ public class AddAdminAdmin extends javax.swing.JFrame {
 
     // Kiểm tra nếu có trường nào bị bỏ trống
     if (id.isEmpty() || name.isEmpty() || position.isEmpty() || password.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Please enter complete information!", "Notofication",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -264,14 +263,14 @@ public class AddAdminAdmin extends javax.swing.JFrame {
 
       // Kiểm tra quyền dựa trên idAdmin (id của admin đang đăng nhập)
       if (!db.checkPosition(idAdmin)) {
-        JOptionPane.showMessageDialog(this, "Bạn không có quyền thêm admin!", "Thông báo",
+        JOptionPane.showMessageDialog(this, "Insufficient authority!", "Notification",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
 
       // Kiểm tra xem ID đã tồn tại chưa
       if (db.isAdminIdExists(id)) { // Hàm kiểm tra ID
-        JOptionPane.showMessageDialog(this, "ID đã tồn tại. Vui lòng chọn ID khác!", "Thông báo",
+        JOptionPane.showMessageDialog(this, "ID existed. Please enter another ID!", "Notification",
             JOptionPane.ERROR_MESSAGE);
         return;
       }
@@ -284,13 +283,13 @@ public class AddAdminAdmin extends javax.swing.JFrame {
 
       db.addAdmin(admin);
 
-      JOptionPane.showMessageDialog(this, "Thêm Admin thành công!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Administrator added successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
 
       new MainViewAdmin(idAdmin).setVisible(true);
       this.dispose();
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, "Lỗi: " + e.getMessage(), "Thông báo",
+      JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Notification",
           JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }

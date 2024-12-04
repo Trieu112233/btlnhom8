@@ -60,7 +60,7 @@ public class AddUserAdmin extends javax.swing.JFrame {
     titleLabel.setFont(new java.awt.Font("Segoe UI Light", 3, 24)); // NOI18N
     titleLabel.setForeground(new java.awt.Color(255, 0, 0));
     titleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    titleLabel.setText("Tạo Tài Khoản Mới Cho Người Dùng");
+    titleLabel.setText("Add New Normal User");
 
     idLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     idLabel.setText("ID");
@@ -73,7 +73,7 @@ public class AddUserAdmin extends javax.swing.JFrame {
     });
 
     nameLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    nameLabel.setText("Tên");
+    nameLabel.setText("Name");
 
     nameTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     nameTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +83,7 @@ public class AddUserAdmin extends javax.swing.JFrame {
     });
 
     classLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    classLabel.setText("Lớp");
+    classLabel.setText("Class");
 
     classTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     classTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +103,7 @@ public class AddUserAdmin extends javax.swing.JFrame {
     });
 
     passwordLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    passwordLabel.setText("Mật khẩu");
+    passwordLabel.setText("Password");
 
     passwordTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     passwordTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +287,7 @@ public class AddUserAdmin extends javax.swing.JFrame {
     // Kiểm tra nếu có trường nào bị bỏ trống
     if (id.isEmpty() || name.isEmpty() || className.isEmpty() || courseName.isEmpty()
         || password.isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Please enter complete information!", "Notification",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -304,12 +304,12 @@ public class AddUserAdmin extends javax.swing.JFrame {
       DatabaseManager dbManager = new DatabaseManager();
       dbManager.addNormalUser(user);
 
-      JOptionPane.showMessageDialog(this, "Thêm Người dùng thành công!", "Thông báo",
+      JOptionPane.showMessageDialog(this, "Normal User Added Successfully!", "Notification",
           JOptionPane.INFORMATION_MESSAGE);
       new MainViewAdmin(idAdmin).setVisible(true); // Quay lại giao diện chính
       this.dispose();
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(this, "Lỗi: " + e.getMessage(), "Thông báo",
+      JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Notification",
           JOptionPane.ERROR_MESSAGE);
       e.printStackTrace();
     }

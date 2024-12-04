@@ -37,7 +37,6 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
   }
 
   @SuppressWarnings("unchecked")
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
 
     jPanel1 = new javax.swing.JPanel();
@@ -54,22 +53,22 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    returnLabel.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+    returnLabel.setFont(new java.awt.Font("Segoe UI", 3, 24));
     returnLabel.setForeground(new java.awt.Color(255, 0, 0));
     returnLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    returnLabel.setText("Trả Sách");
+    returnLabel.setText("Return Document");
 
-    bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    bookTitleLabel.setText("Tên sách");
+    bookTitleLabel.setFont(new java.awt.Font("Segoe UI", 2, 18));
+    bookTitleLabel.setText("Title");
 
-    bookTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    bookTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18));
     bookTitleTextField.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         bookTitleTextFieldActionPerformed(evt);
       }
     });
 
-    backButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+    backButton.setFont(new java.awt.Font("Segoe UI", 2, 18));
     backButton.setMnemonic('B');
     backButton.setText("Back");
     backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -78,8 +77,8 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
       }
     });
 
-    returnButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    returnButton.setText("Trả");
+    returnButton.setFont(new java.awt.Font("Segoe UI", 2, 18));
+    returnButton.setText("Return");
     returnButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnButtonActionPerformed(evt);
@@ -103,7 +102,7 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
     jScrollPane1.setViewportView(borrowedDocumentTextArea);
 
     idUserLabel.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    idUserLabel.setText("ID người dùng");
+    idUserLabel.setText("User ID");
 
     idUserTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
     idUserTitleTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +212,7 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
     );
 
     pack();
-  }// </editor-fold>
+  }
 
   private void bookTitleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
   }
@@ -224,11 +223,10 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
         true); // Giả sử bạn có một màn hình dashboard tên AdminDashboard
   }
 
-
   private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {
     // Kiểm tra nếu ô nhập liệu bị rỗng
     if (bookTitleTextField.getText().isEmpty()) {
-      JOptionPane.showMessageDialog(this, "Vui lòng nhập tiêu đề hoặc mã tài liệu", "Lỗi",
+      JOptionPane.showMessageDialog(this, "Please enter document title", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -241,7 +239,7 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
 
     // Kiểm tra nếu tài liệu không tồn tại hoặc không phải là tài liệu người dùng đã mượn
     if (document == null || !normalUser.checkBorrowedDocument(bookTitleTextField.getText())) {
-      JOptionPane.showMessageDialog(this, "Tài liệu không phải của bạn hoặc chưa mượn!", "Lỗi",
+      JOptionPane.showMessageDialog(this, "User have not borrowed this document yet!", "Error",
           JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -254,12 +252,11 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
     dbManager.updateDocument(bookTitleTextField.getText(), document.getCopiesAvailable());
 
     // Thông báo trả sách thành công
-    JOptionPane.showMessageDialog(this, "Trả tài liệu thành công!", "Thông báo",
+    JOptionPane.showMessageDialog(this, "Return successfully!", "Notification",
         JOptionPane.INFORMATION_MESSAGE);
     borrowedDocumentTextAreaAncestorAdded(null);
 
   }
-
 
   private void borrowedDocumentTextAreaAncestorAdded(javax.swing.event.AncestorEvent evt) {
     try {
@@ -269,26 +266,26 @@ public class UpdateReturnedDocumentAdmin extends javax.swing.JFrame {
 
       // Kiểm tra nếu danh sách rỗng
       if (borrowedDocuments.isEmpty()) {
-        borrowedDocumentTextArea.setText("Bạn chưa mượn tài liệu nào.");
+        borrowedDocumentTextArea.setText("User have not borrowed any document yet.");
         return;
       }
 
       // Tạo chuỗi để hiển thị
       StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append("Tài liệu đã mượn:\n\n");
+      stringBuilder.append("Borrowed Document:\n\n");
       int count = 1;
       for (Document document : borrowedDocuments) {
-        stringBuilder.append("Tài liệu ").append(count++).append(":\n")
-            .append("- Tiêu đề: ").append(document.getTitle()).append("\n")
-            .append("- Tác giả: ").append(document.getAuthor()).append("\n\n");
+        stringBuilder.append("Document ").append(count++).append(":\n")
+            .append("- Title: ").append(document.getTitle()).append("\n")
+            .append("- Author: ").append(document.getAuthor()).append("\n\n");
       }
 
       // Hiển thị danh sách tài liệu
       borrowedDocumentTextArea.setText(stringBuilder.toString());
     } catch (Exception e) {
       // Xử lý lỗi và thông báo
-      JOptionPane.showMessageDialog(this, "Có lỗi xảy ra khi lấy danh sách tài liệu đã mượn!",
-          "Lỗi", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, "Error listing borrowed document!",
+          "Error", JOptionPane.ERROR_MESSAGE);
       e.printStackTrace(); // Debug
     }
   }
