@@ -104,7 +104,8 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                 jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(
+                            javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89,
@@ -113,15 +114,19 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
                             .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102,
                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(authorLabel2, javax.swing.GroupLayout.Alignment.LEADING,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
                             jPanel1Layout.createSequentialGroup()
-                                .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102,
+                                .addComponent(bookTitleLabel,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 102,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 448,
+                                .addComponent(bookTitleTextField,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 448,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(checkButton, javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -129,7 +134,8 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
                                 .addGap(1, 1, 1))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
                             jPanel1Layout.createSequentialGroup()
-                                .addComponent(numberOfCopiesAvailableLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 697,
+                                .addComponent(numberOfCopiesAvailableLabel2,
+                                    javax.swing.GroupLayout.PREFERRED_SIZE, 697,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 1, Short.MAX_VALUE)))
                     .addContainerGap())
@@ -141,23 +147,32 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37,
-                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkButton, javax.swing.GroupLayout.Alignment.TRAILING,
-                        javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(
+                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                            false)
+                        .addComponent(bookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                            37,
+                            javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkButton, javax.swing.GroupLayout.Alignment.TRAILING,
+                            javax.swing.GroupLayout.PREFERRED_SIZE, 33,
+                            javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addComponent(authorLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(numberOfCopiesAvailableLabel2, javax.swing.GroupLayout.PREFERRED_SIZE,
                     43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(borrowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92,
+                    Short.MAX_VALUE)
+                .addGroup(
+                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
+                            false)
+                        .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40,
+                            Short.MAX_VALUE)
+                        .addComponent(borrowButton, javax.swing.GroupLayout.DEFAULT_SIZE,
+                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
     );
 

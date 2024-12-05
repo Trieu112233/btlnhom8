@@ -493,10 +493,11 @@ public class FindDocumentUser extends javax.swing.JFrame {
                         ? book.getVolumeInfo().getPreviewLink() : "No preview link available.");
 
                     document1 = dbManager.findDocument(document.getTitle());
-                    if(document1 != null){
+                    if (document1 != null) {
                       document.setCopiesAvailable(document1.getCopiesAvailable());
+                    } else {
+                      document.setCopiesAvailable(0);
                     }
-                    else document.setCopiesAvailable(0);
 
                     updateUIWithDocument(document);
                     isUpdating = false; // Kết thúc trạng thái cập nhật

@@ -1,6 +1,7 @@
 package API;
 
 public class industryIdentifiers {
+
   private String type;
   private String identifier;
 
