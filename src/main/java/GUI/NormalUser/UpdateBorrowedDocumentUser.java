@@ -1,5 +1,6 @@
 package GUI.NormalUser;
 
+import java.util.ArrayList;
 import main_class.Document;
 import main_class.NormalUser;
 
@@ -19,6 +20,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JLabel numberOfCopiesAvailableLabel2;
+  private javax.swing.JPopupMenu popupMenu;
 
   Document document;
   DatabaseManager dbManager = new DatabaseManager();
@@ -46,6 +48,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     authorLabel2 = new javax.swing.JLabel();
     backButton = new javax.swing.JButton();
     borrowButton = new javax.swing.JButton();
+    popupMenu = new javax.swing.JPopupMenu(); // Thêm JPopupMenu
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,9 +61,10 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     bookTitleLabel.setText("Title");
 
     bookTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    bookTitleTextField.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        bookTitleTextFieldActionPerformed(evt);
+    bookTitleTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+      @Override
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        updateSuggestions(); // Gọi hàm cập nhật gợi ý khi người dùng gõ
       }
     });
 
@@ -73,28 +77,8 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     });
 
     numberOfCopiesAvailableLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    numberOfCopiesAvailableLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
-      public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-      }
-
-      public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-      }
-
-      public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-      }
-    });
 
     authorLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    authorLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
-      public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-      }
-
-      public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-      }
-
-      public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-      }
-    });
 
     backButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
     backButton.setMnemonic('B');
@@ -120,8 +104,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                 jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(
-                            javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(borrowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 89,
@@ -130,19 +113,15 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
                             .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102,
                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(authorLabel2, javax.swing.GroupLayout.Alignment.LEADING,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING,
-                            javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
                             jPanel1Layout.createSequentialGroup()
-                                .addComponent(bookTitleLabel,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 102,
+                                .addComponent(bookTitleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 102,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bookTitleTextField,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 448,
+                                .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 448,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(checkButton, javax.swing.GroupLayout.DEFAULT_SIZE,
@@ -150,8 +129,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
                                 .addGap(1, 1, 1))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING,
                             jPanel1Layout.createSequentialGroup()
-                                .addComponent(numberOfCopiesAvailableLabel2,
-                                    javax.swing.GroupLayout.PREFERRED_SIZE, 697,
+                                .addComponent(numberOfCopiesAvailableLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 697,
                                     javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 1, Short.MAX_VALUE)))
                     .addContainerGap())
@@ -163,31 +141,23 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                            false)
-                        .addComponent(bookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE,
-                            37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(checkButton, javax.swing.GroupLayout.Alignment.TRAILING,
-                            javax.swing.GroupLayout.PREFERRED_SIZE, 33,
-                            javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bookTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bookTitleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37,
+                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkButton, javax.swing.GroupLayout.Alignment.TRAILING,
+                        javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(54, 54, 54)
                 .addComponent(authorLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43,
                     javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(numberOfCopiesAvailableLabel2, javax.swing.GroupLayout.PREFERRED_SIZE,
                     43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92,
-                    Short.MAX_VALUE)
-                .addGroup(
-                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
-                            false)
-                        .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40,
-                            Short.MAX_VALUE)
-                        .addComponent(borrowButton, javax.swing.GroupLayout.DEFAULT_SIZE,
-                            javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(backButton, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(borrowButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
     );
 
@@ -205,7 +175,7 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     );
 
     pack();
-  }// </editor-fold>
+  }
 
   private void bookTitleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     // Kiểm tra nếu ô nhập liệu bị rỗng
@@ -235,9 +205,6 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
     MainViewUser mainViewUser = new MainViewUser(idUser);
     mainViewUser.setVisible(true);
     this.dispose();
-  }
-
-  private void borrowedDocumentTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
   }
 
   private void borrowButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -301,6 +268,73 @@ public class UpdateBorrowedDocumentUser extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(this, "Error updating database!", "Error",
           JOptionPane.ERROR_MESSAGE);
       e.printStackTrace(); // In lỗi ra console để debug
+    }
+  }
+
+  private Timer typingTimer;
+  private boolean isUpdating = false;
+
+  private void updateSuggestions() {
+    if (isUpdating) {
+      return; // Không thực hiện nếu đang trong trạng thái cập nhật
+    }
+
+    String query = bookTitleTextField.getText().trim();
+
+    // Ẩn popup cũ nếu không có input
+    popupMenu.setVisible(false);
+
+    if (!query.isEmpty()) {
+      // Hủy timer trước đó nếu tồn tại
+      if (typingTimer != null) {
+        typingTimer.stop();
+      }
+
+      // Tạo một timer để trì hoãn việc xử lý
+      typingTimer = new Timer(250, e -> {
+        new Thread(() -> {
+          try {
+            // Truy vấn danh sách các tiêu đề sách từ cơ sở dữ liệu
+            ArrayList<Document> matchingDocuments = dbManager.findDocumentsByPrefix(query);
+
+            // Cập nhật giao diện gợi ý
+            SwingUtilities.invokeLater(() -> {
+              popupMenu.removeAll(); // Xóa các mục cũ trong popup
+
+              if (!matchingDocuments.isEmpty()) {
+                for (Document doc : matchingDocuments) {
+                  String title = doc.getTitle();
+                  JMenuItem item = new JMenuItem(title);
+
+                  // Xử lý khi chọn một mục gợi ý
+                  item.addActionListener(e1 -> {
+                    isUpdating = true; // Đánh dấu đang cập nhật
+                    bookTitleTextField.setText(title); // Điền tên sách vào text field
+                    popupMenu.setVisible(false); // Ẩn popup
+
+                    // Cập nhật giao diện với thông tin tài liệu
+
+                    isUpdating = false; // Hoàn tất cập nhật
+                  });
+
+                  popupMenu.add(item);
+                }
+
+                // Hiển thị popup bên dưới JTextField
+                popupMenu.show(bookTitleTextField, 0, bookTitleTextField.getHeight());
+                bookTitleTextField.requestFocusInWindow(); // Đảm bảo focus vẫn ở JTextField
+              }
+            });
+          } catch (Exception ex) {
+            ex.printStackTrace(); // Xử lý ngoại lệ nếu cần
+          }
+        }).start();
+      });
+
+      typingTimer.setRepeats(false); // Đảm bảo chỉ gọi một lần sau khoảng thời gian trễ
+      typingTimer.start(); // Bắt đầu
+    } else {
+      popupMenu.setVisible(false); // Ẩn popup khi không có từ khóa tìm kiếm
     }
   }
 

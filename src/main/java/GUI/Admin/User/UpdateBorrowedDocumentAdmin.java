@@ -1,5 +1,6 @@
 package GUI.Admin.User;
 
+import java.util.ArrayList;
 import main_class.Document;
 import main_class.NormalUser;
 
@@ -24,6 +25,7 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JLabel numberOfCopiesAvailableLabel2;
+  private javax.swing.JPopupMenu popupMenu;
 
   Document document;
   DatabaseManager dbManager = new DatabaseManager();
@@ -40,7 +42,6 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
   @SuppressWarnings("unchecked")
   // <editor-fold defaultstate="collapsed" desc="Generated Code">
   private void initComponents() {
-
     jPanel1 = new javax.swing.JPanel();
     jLabel1 = new javax.swing.JLabel();
     bookTitleLabel = new javax.swing.JLabel();
@@ -52,8 +53,11 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
     borrowButton = new javax.swing.JButton();
     idUserLabel = new javax.swing.JLabel();
     idUserTextField = new javax.swing.JTextField();
+    popupMenu = new javax.swing.JPopupMenu(); // Tạo JPopupMenu
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+    bookTitleTextField.setComponentPopupMenu(popupMenu); // Gắn popup vào textfield
 
     jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
     jLabel1.setForeground(new java.awt.Color(255, 0, 0));
@@ -64,9 +68,10 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
     bookTitleLabel.setText("Title");
 
     bookTitleTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    bookTitleTextField.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        bookTitleTextFieldActionPerformed(evt);
+    bookTitleTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+      @Override
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        updateSuggestions(); // Gọi hàm cập nhật gợi ý khi người dùng gõ
       }
     });
 
@@ -79,30 +84,8 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
     });
 
     numberOfCopiesAvailableLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    numberOfCopiesAvailableLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
-      public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-        numberOfCopiesAvailableLabel2AncestorAdded(evt);
-      }
-
-      public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-      }
-
-      public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-      }
-    });
 
     authorLabel2.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-    authorLabel2.addAncestorListener(new javax.swing.event.AncestorListener() {
-      public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-        authorLabel2AncestorAdded(evt);
-      }
-
-      public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-      }
-
-      public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-      }
-    });
 
     backButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
     backButton.setMnemonic('B');
@@ -125,6 +108,7 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
     idUserLabel.setText("ID User");
 
     idUserTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
     idUserTextField.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         idUserTextFieldActionPerformed(evt);
@@ -235,9 +219,8 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
-
     pack();
-  }// </editor-fold>
+  }
 
   private void bookTitleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     checkButtonActionPerformed(null);
@@ -342,6 +325,73 @@ public class UpdateBorrowedDocumentAdmin extends javax.swing.JFrame {
 
   private void idUserTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
     borrowButtonActionPerformed(null);
+  }
+
+  private Timer typingTimer;
+  private boolean isUpdating = false;
+
+  private void updateSuggestions() {
+    if (isUpdating) {
+      return; // Không thực hiện nếu đang trong trạng thái cập nhật
+    }
+
+    String query = bookTitleTextField.getText().trim();
+
+    // Ẩn popup cũ nếu không có input
+    popupMenu.setVisible(false);
+
+    if (!query.isEmpty()) {
+      // Hủy timer trước đó nếu tồn tại
+      if (typingTimer != null) {
+        typingTimer.stop();
+      }
+
+      // Tạo một timer để trì hoãn việc xử lý
+      typingTimer = new Timer(250, e -> {
+        new Thread(() -> {
+          try {
+            // Truy vấn danh sách các tiêu đề sách từ cơ sở dữ liệu
+            ArrayList<Document> matchingDocuments = dbManager.findDocumentsByPrefix(query);
+
+            // Cập nhật giao diện gợi ý
+            SwingUtilities.invokeLater(() -> {
+              popupMenu.removeAll(); // Xóa các mục cũ trong popup
+
+              if (!matchingDocuments.isEmpty()) {
+                for (Document doc : matchingDocuments) {
+                  String title = doc.getTitle();
+                  JMenuItem item = new JMenuItem(title);
+
+                  // Xử lý khi chọn một mục gợi ý
+                  item.addActionListener(e1 -> {
+                    isUpdating = true; // Đánh dấu đang cập nhật
+                    bookTitleTextField.setText(title); // Điền tên sách vào text field
+                    popupMenu.setVisible(false); // Ẩn popup
+
+                    // Cập nhật giao diện với thông tin tài liệu
+
+                    isUpdating = false; // Hoàn tất cập nhật
+                  });
+
+                  popupMenu.add(item);
+                }
+
+                // Hiển thị popup bên dưới JTextField
+                popupMenu.show(bookTitleTextField, 0, bookTitleTextField.getHeight());
+                bookTitleTextField.requestFocusInWindow(); // Đảm bảo focus vẫn ở JTextField
+              }
+            });
+          } catch (Exception ex) {
+            ex.printStackTrace(); // Xử lý ngoại lệ nếu cần
+          }
+        }).start();
+      });
+
+      typingTimer.setRepeats(false); // Đảm bảo chỉ gọi một lần sau khoảng thời gian trễ
+      typingTimer.start(); // Bắt đầu
+    } else {
+      popupMenu.setVisible(false); // Ẩn popup khi không có từ khóa tìm kiếm
+    }
   }
 
   public static void main(String args[]) {

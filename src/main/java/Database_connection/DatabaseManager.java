@@ -1,5 +1,7 @@
 package Database_connection;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import main_class.*;
 
 import java.net.MalformedURLException;
@@ -472,5 +474,14 @@ public class DatabaseManager {
       return rowsAffected > 0;
     }
   }
+
+  public ArrayList<Document> findDocumentsByPrefix(String prefix) {
+    // Giả sử `documents` là danh sách tất cả tài liệu trong CSDL
+    ArrayList<Document> documents = getAllDocuments();
+    return (ArrayList<Document>) documents.stream()
+        .filter(doc -> doc.getTitle().toLowerCase().startsWith(prefix.toLowerCase()))
+        .collect(Collectors.toList());
+  }
+
 
 }
