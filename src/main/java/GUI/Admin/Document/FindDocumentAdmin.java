@@ -42,13 +42,17 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
   private javax.swing.JButton qrButton;
   private javax.swing.JPopupMenu popupMenu;
 
+  DatabaseManager dbManager;
   Document document;
+  Document document1;
   private String idAdmin;
 
   public FindDocumentAdmin(String idAdmin) {
     initComponents();
     this.idAdmin = idAdmin;
+    dbManager = new DatabaseManager();
     document = new Document();
+    document1 = new Document();
     jPanel1.setBackground(Color.WHITE);
     setLocationRelativeTo(null);
   }
@@ -426,17 +430,15 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
       typingTimer = new Timer(250, e -> { // 250ms là khoảng thời gian chờ trước khi gọi API
         new Thread(() -> {
           try {
-            DatabaseManager databaseManager = new DatabaseManager();
 
             // Kiểm tra sách trong cơ sở dữ liệu
-            Document existingDocument = databaseManager.findDocument(query);
+            Document existingDocument = dbManager.findDocument(query);
             if (existingDocument != null) {
               // Sách đã tồn tại trong CSDL, cập nhật giao diện với thông tin từ CSDL
               document = existingDocument;
               SwingUtilities.invokeLater(() -> {
                 updateUIWithDocument(existingDocument);
               });
-
               return; // Kết thúc luồng nếu tìm thấy trong CSDL
             }
 
@@ -488,6 +490,12 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
                     document.setPreviewLink(book.getVolumeInfo().getPreviewLink() != null
                         ? book.getVolumeInfo().getPreviewLink() : "No preview link available.");
 
+                    document1 = dbManager.findDocument(document.getTitle());
+                    if(document1 != null){
+                      document.setCopiesAvailable(document1.getCopiesAvailable());
+                    }
+                    else document.setCopiesAvailable(0);
+
                     updateUIWithDocument(document);
                     isUpdating = false; // Kết thúc trạng thái cập nhật
                   });
@@ -504,7 +512,6 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
           }
         }).start();
       });
-
       typingTimer.setRepeats(false); // Đảm bảo chỉ gọi một lần sau khoảng thời gian trễ
       typingTimer.start(); // Bắt đầu
     } else {

@@ -10,9 +10,14 @@ public class VolumeInfo {
   private String description;
   private ImageLinks imageLinks; // Đảm bảo imageLinks là kiểu ImageLinks
   private String previewLink;
+  private industryIdentifiers identifiers;
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public industryIdentifiers getIdentifiers() {
+    return identifiers;
   }
 
   public void setAuthors(List<String> authors) {

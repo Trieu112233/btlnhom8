@@ -54,6 +54,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
     initComponents();
     this.idAdmin = idAdmin;
     document = new Document();
+    document1 = new Document();
     dbManager = new DatabaseManager();
     jPanel1.setBackground(Color.WHITE);
     setLocationRelativeTo(null);
