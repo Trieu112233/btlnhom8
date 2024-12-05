@@ -47,6 +47,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
   private DatabaseManager dbManager;
   private Document document;
+  private Document document1;
   private String idAdmin;
 
   public AddDocumentAdmin(String idAdmin) {
@@ -534,7 +535,7 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
       }
 
       // Khởi tạo một timer để trì hoãn việc gọi API
-      typingTimer = new Timer(500, e -> { // 500ms là khoảng thời gian chờ trước khi gọi API
+      typingTimer = new Timer(250, e -> { // 250ms là khoảng thời gian chờ trước khi gọi API
         new Thread(() -> {
           try {
             DatabaseManager databaseManager = new DatabaseManager();
@@ -597,6 +598,12 @@ public class AddDocumentAdmin extends javax.swing.JFrame {
 
                     document.setPreviewLink(book.getVolumeInfo().getPreviewLink() != null
                         ? book.getVolumeInfo().getPreviewLink() : "No preview link available.");
+
+                    document1 = dbManager.findDocument(document.getTitle());
+                    if(document1 != null){
+                      document.setCopiesAvailable(document1.getCopiesAvailable());
+                    }
+                    else document.setCopiesAvailable(0);
 
                     updateUIWithDocument(document);
                     isUpdating = false; // Kết thúc trạng thái cập nhật

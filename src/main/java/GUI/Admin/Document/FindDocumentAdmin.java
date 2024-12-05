@@ -423,7 +423,7 @@ public class FindDocumentAdmin extends javax.swing.JFrame {
       }
 
       // Khởi tạo một timer để trì hoãn việc gọi API
-      typingTimer = new Timer(500, e -> { // 500ms là khoảng thời gian chờ trước khi gọi API
+      typingTimer = new Timer(250, e -> { // 250ms là khoảng thời gian chờ trước khi gọi API
         new Thread(() -> {
           try {
             DatabaseManager databaseManager = new DatabaseManager();

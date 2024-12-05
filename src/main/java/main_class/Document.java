@@ -5,6 +5,7 @@ public class Document {
   /**
    * Khoi tao thuoc tinh.
    */
+  private String volumeID;
   private String title;
   private String author;
   private int copiesAvailable;
