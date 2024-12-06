@@ -31,7 +31,6 @@ public class QRCodeGenerator {
       // Write the QR code to the file
       MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 
-      System.out.println("QR Code for book generated successfully at: " + filePath);
     } catch (WriterException | IOException e) {
       System.err.println("Error generating QR code: " + e.getMessage());
     }
