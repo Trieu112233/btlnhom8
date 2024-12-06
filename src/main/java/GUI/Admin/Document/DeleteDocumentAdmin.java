@@ -1,5 +1,6 @@
 package GUI.Admin.Document;
 
+import java.util.ArrayList;
 import main_class.Document;
 
 import GUI.Admin.MainViewAdmin;
@@ -22,12 +23,15 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
   private javax.swing.JTextField nameDocumentTextField;
   private javax.swing.JButton submitButton;
   private javax.swing.JLabel titleLabel;
+  private javax.swing.JPopupMenu popupMenu;
 
   private String idAdmin;
+  private DatabaseManager dbManager;
 
   public DeleteDocumentAdmin(String idAdmin) {
     initComponents();
     this.idAdmin = idAdmin;
+    this.dbManager = new DatabaseManager();
     setLocationRelativeTo(null);
     jPanel1.setBackground(Color.WHITE);
   }
@@ -46,6 +50,7 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     submitButton = new javax.swing.JButton();
     deleteCopiesLabel = new javax.swing.JLabel();
     deleteCopiesTextField = new javax.swing.JTextField();
+    popupMenu = new javax.swing.JPopupMenu();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,9 +64,10 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
     nameDocumentLabel.setText("Title");
 
     nameDocumentTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-    nameDocumentTextField.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        nameDocumentTextFieldActionPerformed(evt);
+    nameDocumentTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+      @Override
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        updateSuggestions(); // Gọi hàm cập nhật gợi ý khi người dùng gõ
       }
     });
 
@@ -292,6 +298,8 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
             JOptionPane.INFORMATION_MESSAGE);
         nameAuthorLabel.setText("");
         copiesAvailableLabel.setText("");
+        new DeleteDocumentAdmin(idAdmin).setVisible(true);
+        this.dispose();
         return;
       }
 
@@ -302,6 +310,8 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
           JOptionPane.YES_NO_OPTION,
           JOptionPane.WARNING_MESSAGE);
       if (confirm != JOptionPane.YES_OPTION) {
+        new DeleteDocumentAdmin(idAdmin).setVisible(true);
+        this.dispose();
         return;
       }
 
@@ -316,11 +326,80 @@ public class DeleteDocumentAdmin extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(this, "Error Deleting Document!", "Error",
           JOptionPane.ERROR_MESSAGE);
     }
+    new DeleteDocumentAdmin(idAdmin).setVisible(true);
+    this.dispose();
   }
 
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
     dispose();
     new MainViewAdmin(idAdmin).setVisible(true);
+  }
+
+  private Timer typingTimer;
+  private boolean isUpdating = false;
+
+  private void updateSuggestions() {
+    if (isUpdating) {
+      return; // Không thực hiện nếu đang trong trạng thái cập nhật
+    }
+
+    String query = nameDocumentTextField.getText().trim();
+
+    // Ẩn popup cũ nếu không có input
+    popupMenu.setVisible(false);
+
+    if (!query.isEmpty()) {
+      // Hủy timer trước đó nếu tồn tại
+      if (typingTimer != null) {
+        typingTimer.stop();
+      }
+
+      // Tạo một timer để trì hoãn việc xử lý
+      typingTimer = new Timer(250, e -> {
+        new Thread(() -> {
+          try {
+            // Truy vấn danh sách các tiêu đề sách từ cơ sở dữ liệu
+            ArrayList<Document> matchingDocuments = dbManager.findDocumentsByPrefix(query);
+
+            // Cập nhật giao diện gợi ý
+            SwingUtilities.invokeLater(() -> {
+              popupMenu.removeAll(); // Xóa các mục cũ trong popup
+
+              if (!matchingDocuments.isEmpty()) {
+                for (Document doc : matchingDocuments) {
+                  String title = doc.getTitle();
+                  JMenuItem item = new JMenuItem(title);
+
+                  // Xử lý khi chọn một mục gợi ý
+                  item.addActionListener(e1 -> {
+                    isUpdating = true; // Đánh dấu đang cập nhật
+                    nameDocumentTextField.setText(title); // Điền tên sách vào text field
+                    popupMenu.setVisible(false); // Ẩn popup
+
+                    // Cập nhật giao diện với thông tin tài liệu
+
+                    isUpdating = false; // Hoàn tất cập nhật
+                  });
+
+                  popupMenu.add(item);
+                }
+
+                // Hiển thị popup bên dưới JTextField
+                popupMenu.show(nameDocumentTextField, 0, nameDocumentTextField.getHeight());
+                nameDocumentTextField.requestFocusInWindow(); // Đảm bảo focus vẫn ở JTextField
+              }
+            });
+          } catch (Exception ex) {
+            ex.printStackTrace(); // Xử lý ngoại lệ nếu cần
+          }
+        }).start();
+      });
+
+      typingTimer.setRepeats(false); // Đảm bảo chỉ gọi một lần sau khoảng thời gian trễ
+      typingTimer.start(); // Bắt đầu
+    } else {
+      popupMenu.setVisible(false); // Ẩn popup khi không có từ khóa tìm kiếm
+    }
   }
 
   public static void main(String args[]) {
